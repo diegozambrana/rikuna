@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "generated_at": "2026-08-05T00:00:00Z"
+  },
+  "items": [
+    {
+      "imdb_id": "tt0111161",
+      "title": "The Shawshank Redemption",
+      "year": 1994,
+      "url": "https://www.netflix.com/title/60000001"
+    },
+    {
+      "imdb_id": "tt4574334",
+      "title": "Stranger Things",
+      "year": 2016,
+      "type": "tv",
+      "offer_type": "subscription"
+    }
+  ]
+}
