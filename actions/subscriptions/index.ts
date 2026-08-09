@@ -1,4 +1,5 @@
 export { getActiveSubscriptionsAction } from "./getActiveSubscriptionsAction"
+export { getActiveSubscriptionsWithPlatformAction } from "./getActiveSubscriptionsWithPlatformAction"
 export { getSubscriptionHistoryAction } from "./getSubscriptionHistoryAction"
 export { getKnownPlatformsAction } from "./getKnownPlatformsAction"
 export { activateSubscriptionAction } from "./activateSubscriptionAction"

@@ -29,6 +29,8 @@ function mapRow(row: UserSubscriptionRow): UserSubscription {
 
 const UNIQUE_VIOLATION = "23505"
 
+export type ActiveSubscriptionWithPlatform = UserSubscription & { platformName: string }
+
 export class SubscriptionServices {
   constructor(private readonly client: SupabaseClient) {}
 
@@ -41,6 +43,22 @@ export class SubscriptionServices {
 
     if (error) throw error
     return (data as UserSubscriptionRow[]).map(mapRow)
+  }
+
+  /** For the panel header — one badge per active row, platform name embedded via its FK. */
+  async getActiveSubscriptionsWithPlatform(userId: string): Promise<ActiveSubscriptionWithPlatform[]> {
+    const { data, error } = await this.client
+      .from("user_subscriptions")
+      .select("*, platforms(name)")
+      .eq("user_id", userId)
+      .is("ended_on", null)
+      .order("started_on", { ascending: false })
+
+    if (error) throw error
+    return (data as (UserSubscriptionRow & { platforms: { name: string } | null })[]).map((row) => ({
+      ...mapRow(row),
+      platformName: row.platforms?.name ?? "Plataforma desconocida",
+    }))
   }
 
   async getSubscriptionHistory(userId: string): Promise<UserSubscription[]> {
