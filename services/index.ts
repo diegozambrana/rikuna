@@ -11,3 +11,9 @@ export { MediaServices } from "./MediaServices"
 export type { UpsertOrCreateStubInput } from "./MediaServices"
 
 export { SubscriptionServices } from "./SubscriptionServices"
+export type { ActiveSubscriptionWithPlatform } from "./SubscriptionServices"
+
+export { RecommendationServices } from "./RecommendationServices"
+export type { MonthlyPick } from "./RecommendationServices"
+
+export { MediaStatusServices } from "./MediaStatusServices"
