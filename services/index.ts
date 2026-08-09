@@ -5,10 +5,14 @@ export { CatalogSnapshotServices } from "./CatalogSnapshotServices"
 export type { CreateSnapshotInput } from "./CatalogSnapshotServices"
 
 export { MediaAvailabilityServices } from "./MediaAvailabilityServices"
-export type { UpsertAvailabilityInput, ExpireStaleInput } from "./MediaAvailabilityServices"
+export type {
+  UpsertAvailabilityInput,
+  ExpireStaleInput,
+  AvailabilityWithPlatform,
+} from "./MediaAvailabilityServices"
 
 export { MediaServices } from "./MediaServices"
-export type { UpsertOrCreateStubInput } from "./MediaServices"
+export type { UpsertOrCreateStubInput, TitleWithDetails, CastMember } from "./MediaServices"
 
 export { SubscriptionServices } from "./SubscriptionServices"
 export type { ActiveSubscriptionWithPlatform } from "./SubscriptionServices"

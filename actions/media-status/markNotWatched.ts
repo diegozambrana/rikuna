@@ -5,11 +5,9 @@ import { createClient } from "@/lib/supabase/server"
 import { MediaStatusServices } from "@/services"
 import type { MarkWatchedResult } from "./types"
 
-// Shared write path for "mark watched" — called from the panel grid and the
-// title detail screen (RIK-9). Do not duplicate this logic elsewhere; extend
-// this action instead. titleSlug is optional so existing callers that don't
-// have it (the panel grid) are unaffected.
-export async function markWatched(mediaId: string, titleSlug?: string): Promise<MarkWatchedResult> {
+// Sibling to markWatched — the title ficha's "un-mark watched" toggle.
+// titleSlug is optional so future callers without it are unaffected.
+export async function markNotWatched(mediaId: string, titleSlug?: string): Promise<MarkWatchedResult> {
   const supabase = await createClient()
   const {
     data: { user },
@@ -22,7 +20,7 @@ export async function markWatched(mediaId: string, titleSlug?: string): Promise<
   const services = new MediaStatusServices(supabase)
 
   try {
-    await services.markWatched(user.id, mediaId)
+    await services.markNotWatched(user.id, mediaId)
 
     revalidatePath("/panel")
     revalidatePath("/biblioteca")
@@ -32,7 +30,7 @@ export async function markWatched(mediaId: string, titleSlug?: string): Promise<
   } catch (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : "No se pudo marcar el título como visto.",
+      error: error instanceof Error ? error.message : "No se pudo desmarcar el título como visto.",
     }
   }
 }
