@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "generated_at": "2026-09-01T00:00:00Z"
+  },
+  "items": [
+    {
+      "imdb_id": "tt0111161",
+      "title": "The Shawshank Redemption",
+      "year": 1994,
+      "url": "https://tv.apple.com/movie/the-shawshank-redemption",
+      "type": "movie"
+    },
+    {
+      "imdb_id": "tt0108778",
+      "title": "Friends",
+      "year": 1994,
+      "type": "tv"
+    }
+  ]
+}

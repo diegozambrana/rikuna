@@ -47,6 +47,47 @@ export type Person = {
 }
 
 // ---------------------------------------------------------------------------
+// Availability
+// ---------------------------------------------------------------------------
+
+export type Platform = {
+  id: string
+  name: string
+  slug: string
+  logoUrl: string | null
+  providerIdMovie: number | null
+  providerIdTv: number | null
+}
+
+export type CatalogSnapshotStatus = "pending" | "completed" | "failed"
+
+export type CatalogSnapshot = {
+  id: string
+  createdAt: string
+  platformId: string
+  country: string
+  generatedAt: string
+  sourceFile: string | null
+  totalItems: number
+  status: CatalogSnapshotStatus
+}
+
+export type MediaAvailabilityOfferType = "subscription" | "rent" | "buy"
+
+export type MediaAvailability = {
+  id: string
+  mediaId: string
+  platformId: string
+  country: string
+  url: string | null
+  offerType: MediaAvailabilityOfferType
+  isAvailable: boolean
+  firstSeenAt: string
+  lastSeenAt: string
+  lastSnapshotId: string | null
+}
+
+// ---------------------------------------------------------------------------
 // Personal data
 // ---------------------------------------------------------------------------
 

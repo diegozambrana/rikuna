@@ -14,6 +14,7 @@ Detailed implementation logs (date, files, acceptance criteria, decisions) live 
 - RIK-1: Added the secured database foundation for Rikuna — the streaming catalog, per-user watch data, subscriptions, lists, and IMDb import history now have a real, access-controlled home.
 - RIK-2: Added account sign-up, login, logout, and password recovery, plus the private/public area split so shared lists will stay reachable without an account.
 - RIK-4: Added importing your ratings and watchlist from IMDb — upload a CSV export and see matched, newly added, and skipped titles right away.
+- RIK-3: Added the routine that loads a streaming platform's monthly catalog file into Rikuna, keeping availability current and marking titles that rotated out instead of losing their history.
 
 ### Changed
 
