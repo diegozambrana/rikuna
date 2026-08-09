@@ -6,6 +6,7 @@ import type {
   ImdbCsvSourceType,
   ImdbImportBatch,
   ImdbImportBatchStatus,
+  ImdbImportRow,
   ImdbImportRowResult,
   MediaItem,
   UserMediaStatusSource,
@@ -240,6 +241,45 @@ export class ImdbImportServices {
       .eq("id", batchId)
     if (error) throw error
   }
+
+  async listBatchesForUser(userId: string): Promise<ImdbImportBatch[]> {
+    const { data, error } = await this.client
+      .from("imdb_import_batches")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+
+    if (error) throw error
+    return (data ?? []).map(mapBatchRow)
+  }
+
+  async getBatchWithRows(
+    batchId: string,
+    userId: string
+  ): Promise<{ batch: ImdbImportBatch; rows: ImdbImportRow[] } | null> {
+    const { data: batchRow, error: batchError } = await this.client
+      .from("imdb_import_batches")
+      .select("*")
+      .eq("id", batchId)
+      .eq("user_id", userId)
+      .maybeSingle()
+
+    if (batchError) throw batchError
+    if (!batchRow) return null
+
+    const { data: rowRows, error: rowsError } = await this.client
+      .from("imdb_import_rows")
+      .select("*")
+      .eq("batch_id", batchId)
+      .order("title", { ascending: true })
+
+    if (rowsError) throw rowsError
+
+    return {
+      batch: mapBatchRow(batchRow),
+      rows: (rowRows ?? []).map(mapImportRowRow),
+    }
+  }
 }
 
 function mapBatchRow(row: Record<string, unknown>): ImdbImportBatch {
@@ -255,6 +295,21 @@ function mapBatchRow(row: Record<string, unknown>): ImdbImportBatch {
     createdRows: row.created_rows as number,
     skippedRows: row.skipped_rows as number,
     completedAt: (row.completed_at as string | null) ?? null,
+  }
+}
+
+function mapImportRowRow(row: Record<string, unknown>): ImdbImportRow {
+  return {
+    id: row.id as string,
+    batchId: row.batch_id as string,
+    imdbId: row.imdb_id as string,
+    title: (row.title as string | null) ?? null,
+    titleType: (row.title_type as string | null) ?? null,
+    year: (row.year as number | null) ?? null,
+    yourRating: (row.your_rating as number | null) ?? null,
+    dateRated: (row.date_rated as string | null) ?? null,
+    mediaId: (row.media_id as string | null) ?? null,
+    result: row.result as ImdbImportRowResult,
   }
 }
 

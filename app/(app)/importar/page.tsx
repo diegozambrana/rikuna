@@ -1,6 +1,10 @@
+import { getImportBatches } from "@/actions/imdb-import"
+import { BatchHistoryList } from "@/features/import/components/BatchHistoryList"
 import { UploadForm } from "@/features/import/UploadForm"
 
-export default function ImportarPage() {
+export default async function ImportarPage() {
+  const batches = await getImportBatches()
+
   return (
     <div className="flex flex-1 flex-col items-center gap-6 p-6">
       <div className="w-full max-w-lg">
@@ -12,6 +16,13 @@ export default function ImportarPage() {
         </ol>
       </div>
       <UploadForm />
+
+      <div className="w-full max-w-lg">
+        <h2 className="font-heading text-sm font-medium">Importaciones anteriores</h2>
+        <div className="mt-2">
+          <BatchHistoryList batches={batches} />
+        </div>
+      </div>
     </div>
   )
 }
