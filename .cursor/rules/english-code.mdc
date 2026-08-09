@@ -1,0 +1,35 @@
+---
+description: All generated code and comments must be written in English
+alwaysApply: true
+---
+
+# English-Only Code
+
+All generated code and inline comments must be written in English, regardless of the language used in the conversation.
+
+- Variable names, function names, class names, and identifiers → English
+- Code comments (`//`, `/* */`, `#`, `/** */`) → English
+- String literals that are part of logic (error messages, log messages, keys) → English
+- UI-facing strings and user-visible copy are exempt — use the appropriate language for the product
+
+## Examples
+
+```ts
+// ❌ BAD
+const usuarioActivo = true; // verifica si el usuario está activo
+
+// ✅ GOOD
+const isUserActive = true; // check if the user is active
+```
+
+```ts
+// ❌ BAD
+function obtenerSesion() {
+  // retorna la sesión actual
+}
+
+// ✅ GOOD
+function getSession() {
+  // returns the current session
+}
+```

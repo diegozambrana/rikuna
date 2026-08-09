@@ -1,0 +1,99 @@
+---
+description: Steps and conventions to follow when creating a new feature in this Next.js + Supabase project
+alwaysApply: false
+---
+
+# New Feature
+
+When asked to build a new feature (a new resource, page, or end‑to‑end flow), follow this checklist **in order**. Reuse existing modules whenever possible — never duplicate logic that already lives in the project.
+
+## 1. Inspect the database first
+
+Before writing any code, get the data context:
+
+- Read the latest files in `supabase/migrations/` to understand current tables, columns, RLS policies and triggers.
+- If the feature requires schema changes, propose a new timestamped migration in `supabase/migrations/` (`YYYYMMDDHHMMSS_<name>.sql`) — do **not** edit existing migrations.
+
+## 2. Types in `@/types`
+
+- Add domain models to `types/<Resource>.ts` (e.g. `types/Tenant.ts`).
+- Export them from `types/index.ts` (barrel).
+- Reuse shared types like `AppRole`, `User`, `Tenant`, `SystemCode` if applicable. Don't redeclare.
+- Naming follows the existing pattern: `Resource`, `ResourceListItem`, `ResourceDetailData`, `Resource<Status>`.
+
+## 3. Services in `@/services`
+
+- One folder per aggregate: `services/<Resource>Service/<Resource>Services.ts`.
+- Implement as a **class** that takes a `SupabaseClient` in the constructor (mirror `UserServices`, `TenantServices`, `SystemCodeServices`).
+- Methods are pure DB access (`listByTenant`, `getById`, `getByIdMaybe`, `update`, `setActive`, …). No `revalidatePath`, no `cookies()`, no auth checks here.
+- Re‑export through `services/<Resource>Service/index.ts` and `services/index.ts`.
+- **Reuse first**: if a service already exposes the query you need, extend it instead of creating a new one.
+
+## 4. Actions in `@/actions`
+
+- Server‑only entrypoints live in `actions/<resource>/<Resource>Actions.ts` and **must** start with `"use server"`.
+- Responsibilities: `await cookies()`, build the client via `createClient()` (or `createAdminClient()` when admin privileges are required), authenticate with `supabase.auth.getUser()`, call the matching **service**, and `revalidatePath(...)` for affected routes.
+- Throw `Error` with user‑facing messages — the client hooks surface them via `sonner` `toast.error`.
+- Re‑export through `actions/<resource>/index.ts`.
+- **Reuse first**: prefer adding a method to an existing actions file over creating a parallel one for the same resource.
+
+## 5. Features in `@/features`
+
+Each feature page is a folder grouped by resource and screen:
+
+```
+features/<resource>/
+  index.ts                    # re-exports list / create / detail / edit
+  <screen>/
+    index.ts                  # exports the screen component
+    <Resource><Screen>.tsx    # "use client" component
+    hooks/use<Resource><Screen>.ts
+    stores/<Resource><Screen>Store.ts   # zustand
+  utils/index.ts              # shared helpers (badge variants, formatters)
+```
+
+Conventions:
+
+- Screen component receives **server‑fetched initial data** as a prop (`initialUsers`, `initialTenant`, …) and hydrates the zustand store via `useEffect`.
+- Hooks own all client state transitions and call server actions; they expose handlers and state to the component.
+- Stores are minimal zustand slices (`data`, `loading`, `error`, setters).
+- Match the existing screen names: `list`, `create`, `detail`, `edit`.
+
+## 6. UI components
+
+- Default to **shadcn/ui** primitives in `@/components/ui` (`button`, `card`, `dialog`, `form`, `input`, `select`, `table`, `tabs`, `badge`, `avatar`, etc.). If a needed primitive is missing, install it with the shadcn CLI rather than building from scratch.
+- Use the project's custom components when they fit the use case:
+  - `@/components/Table` → `CustomTable`, `CustomTableColumn`, `TableAction` (lists with search/pagination/actions)
+  - `@/components/Dialog` → `ConfirmDialog`
+  - `@/components/Breadcrumb`, `@/components/ColorPicker`, `@/components/layout` (`MainContainer`)
+  - `@/components/AdminOnly` for role gating
+- Do **not** create a new custom component if a shadcn primitive (or an existing custom one) already covers it.
+
+## 7. Route wiring in `app/`
+
+- Admin pages under `app/(admin)/<resource>/...` import the feature component and pass server‑fetched data:
+
+```tsx
+import { getUsers } from "@/actions/user";
+import { UserList } from "@/features/users";
+
+export default async function UsersPage() {
+  const users = await getUsers();
+  return <UserList initialUsers={users} />;
+}
+```
+
+- Keep route files thin: fetch + render. All logic stays in actions/services/features.
+
+## Reference example
+
+A complete vertical slice already exists for the `users` resource:
+
+- DB: `supabase/migrations/20260421223150_integrate_user_auth.sql`
+- Types: `types/User.ts`
+- Service: `services/UserService/UserServices.ts`
+- Actions: `actions/user/UserActions.ts`
+- Feature: `features/users/list/{UserList.tsx, hooks/useUserList.ts, stores/UserListStore.ts}`
+- Route: `app/(admin)/users/page.tsx`
+
+Mirror this structure for any new feature.
