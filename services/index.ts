@@ -14,6 +14,6 @@ export { SubscriptionServices } from "./SubscriptionServices"
 export type { ActiveSubscriptionWithPlatform } from "./SubscriptionServices"
 
 export { RecommendationServices } from "./RecommendationServices"
-export type { MonthlyPick } from "./RecommendationServices"
+export type { MonthlyPick, RecommendationQueryParams } from "./RecommendationServices"
 
 export { MediaStatusServices } from "./MediaStatusServices"
