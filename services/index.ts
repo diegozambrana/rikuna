@@ -9,3 +9,5 @@ export type { UpsertAvailabilityInput, ExpireStaleInput } from "./MediaAvailabil
 
 export { MediaServices } from "./MediaServices"
 export type { UpsertOrCreateStubInput } from "./MediaServices"
+
+export { SubscriptionServices } from "./SubscriptionServices"

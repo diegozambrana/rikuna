@@ -91,6 +91,24 @@ export type MediaAvailability = {
 // Personal data
 // ---------------------------------------------------------------------------
 
+export type UserSubscription = {
+  id: string
+  createdAt: string
+  updatedAt: string
+  userId: string
+  platformId: string
+  country: string
+  startedOn: string
+  endedOn: string | null
+  notes: string | null
+}
+
+export type ActivateSubscriptionInput = {
+  platformId: string
+  country: string
+  notes?: string
+}
+
 export type UserMediaStatusSource = "manual" | "imdb_ratings" | "imdb_watchlist"
 
 export type UserMediaStatus = {
