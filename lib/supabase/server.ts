@@ -31,3 +31,28 @@ export async function createClient() {
     }
   )
 }
+
+export type CurrentUser = {
+  id: string
+  email: string | null
+  fullName: string | null
+}
+
+/**
+ * Uses getUser() (not getSession()) because it revalidates against the Supabase Auth
+ * server — the correct pattern for any server-side authorization decision.
+ */
+export async function getCurrentUser(): Promise<CurrentUser | null> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return null
+
+  return {
+    id: user.id,
+    email: user.email ?? null,
+    fullName: (user.user_metadata?.full_name as string | undefined) ?? null,
+  }
+}
