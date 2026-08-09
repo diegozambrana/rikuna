@@ -18,6 +18,7 @@ Detailed implementation logs (date, files, acceptance criteria, decisions) live 
 - RIK-5: Added an import history list on Importar and a per-import detail page showing exactly what happened to every row of a past CSV upload.
 - RIK-6: Added the Mis suscripciones screen — declare which streaming service and country you currently pay for, see all your active subscriptions at once, and review your full subscription history.
 - RIK-7: Added the main panel ("Qué ver este mes") — see, at a glance, which titles from your watchlist are available right now on the service you pay for, and mark them watched with one tap.
+- RIK-8: Added the Recomendaciones screen — see watchlist titles now available next to a "Descubre algo nuevo" section of well-rated, unseen titles, filterable by genre, with one-tap add-to-watchlist and "no me interesa" actions.
 
 ### Changed
 
