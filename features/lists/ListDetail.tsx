@@ -52,12 +52,15 @@ export function ListDetail({ list, items: initialItems }: { list: UserList; item
   const router = useRouter()
   const [items, setItems] = useState(initialItems)
   const [isPublic, setIsPublic] = useState(list.isPublic)
+  const [publicCode, setPublicCode] = useState(list.publicCode)
   const [removingMediaId, setRemovingMediaId] = useState<string | null>(null)
   const [, startVisibilityTransition] = useTransition()
   const [, startMutationTransition] = useTransition()
   const [deletePending, startDeleteTransition] = useTransition()
 
-  const publicUrl = getPublicListUrl({ ...list, isPublic })
+  // A private list's link 404s (RLS returns zero rows for anon), so only
+  // offer it to copy while the list is actually public right now.
+  const publicUrl = isPublic ? getPublicListUrl(publicCode) : null
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -74,6 +77,7 @@ export function ListDetail({ list, items: initialItems }: { list: UserList; item
         toast.error(result.error ?? "No se pudo actualizar la visibilidad.")
         return
       }
+      if (result.publicCode) setPublicCode(result.publicCode)
       toast.success(checked ? "La lista ahora es pública." : "La lista ahora es privada.")
     })
   }

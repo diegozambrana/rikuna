@@ -136,6 +136,7 @@ export type UserList = {
   slug: string
   description: string | null
   isPublic: boolean
+  publicCode: string | null
 }
 
 export type ListItem = {

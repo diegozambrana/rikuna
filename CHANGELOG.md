@@ -21,6 +21,7 @@ Detailed implementation logs (date, files, acceptance criteria, decisions) live 
 - RIK-8: Added the Recomendaciones screen — see watchlist titles now available next to a "Descubre algo nuevo" section of well-rated, unseen titles, filterable by genre, with one-tap add-to-watchlist and "no me interesa" actions.
 - RIK-9: Added the title detail page — poster, synopsis, rating, genres, cast, and "Dónde ver" with your active service highlighted, plus one-tap watched/watchlist toggles and a read-only public view for visitors without an account.
 - RIK-10: Added Mis listas — create, rename, and delete your own lists, add or remove titles, drag to reorder, and toggle a list public or private, with a share-link button that's ready for when public sharing ships.
+- RIK-11: Added public list sharing — publishing a list now produces a real shareable link that opens the list, and the titles in it, for anyone without a Rikuna account.
 
 ### Changed
 
