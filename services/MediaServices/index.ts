@@ -87,8 +87,61 @@ type CastRow = {
   people: PersonRow | null
 }
 
+// Search-result projection for the list-detail "add title" control (RIK-10)
+// — narrower than MediaItem, same shape as RecommendationServices.MonthlyPick
+// so it drops straight into MediaCard.
+export type MediaSearchResult = {
+  id: string
+  slug: string
+  title: string
+  year: number | null
+  posterUrl: string | null
+  imdbRating: number | null
+  isStub: boolean
+}
+
 export class MediaServices {
   constructor(private readonly client: SupabaseClient) {}
+
+  /**
+   * Catalog search by title (RIK-10's add-to-list control) — case-insensitive
+   * substring match, capped at `limit` results ordered by rating so the most
+   * likely match surfaces first. No established search method existed yet
+   * for RIK-3/RIK-9 to reuse (biblioteca's search ships in a later ticket).
+   */
+  async searchByTitle(query: string, limit = 10): Promise<MediaSearchResult[]> {
+    const trimmed = query.trim()
+    if (!trimmed) return []
+
+    const { data, error } = await this.client
+      .from("media_items")
+      .select("id, slug, title, year, poster_url, imdb_rating, is_stub")
+      .ilike("title", `%${trimmed}%`)
+      .order("imdb_rating", { ascending: false, nullsFirst: false })
+      .limit(limit)
+
+    if (error) throw error
+
+    return (
+      data as {
+        id: string
+        slug: string
+        title: string
+        year: number | null
+        poster_url: string | null
+        imdb_rating: number | null
+        is_stub: boolean
+      }[]
+    ).map((row) => ({
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      year: row.year,
+      posterUrl: row.poster_url,
+      imdbRating: row.imdb_rating,
+      isStub: row.is_stub,
+    }))
+  }
 
   /**
    * Ficha read (RIK-9): media_items by slug, embedding genres (via

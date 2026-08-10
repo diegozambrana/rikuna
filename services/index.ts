@@ -12,7 +12,7 @@ export type {
 } from "./MediaAvailabilityServices"
 
 export { MediaServices } from "./MediaServices"
-export type { UpsertOrCreateStubInput, TitleWithDetails, CastMember } from "./MediaServices"
+export type { UpsertOrCreateStubInput, TitleWithDetails, CastMember, MediaSearchResult } from "./MediaServices"
 
 export { SubscriptionServices } from "./SubscriptionServices"
 export type { ActiveSubscriptionWithPlatform } from "./SubscriptionServices"
@@ -21,3 +21,12 @@ export { RecommendationServices } from "./RecommendationServices"
 export type { MonthlyPick, RecommendationQueryParams } from "./RecommendationServices"
 
 export { MediaStatusServices } from "./MediaStatusServices"
+
+export { ListServices } from "./ListServices"
+export type {
+  ListWithItemCount,
+  ListItemMedia,
+  ListItemWithMedia,
+  ListWithItems,
+  ListWithContainsFlag,
+} from "./ListServices"

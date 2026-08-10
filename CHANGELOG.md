@@ -20,6 +20,7 @@ Detailed implementation logs (date, files, acceptance criteria, decisions) live 
 - RIK-7: Added the main panel ("Qué ver este mes") — see, at a glance, which titles from your watchlist are available right now on the service you pay for, and mark them watched with one tap.
 - RIK-8: Added the Recomendaciones screen — see watchlist titles now available next to a "Descubre algo nuevo" section of well-rated, unseen titles, filterable by genre, with one-tap add-to-watchlist and "no me interesa" actions.
 - RIK-9: Added the title detail page — poster, synopsis, rating, genres, cast, and "Dónde ver" with your active service highlighted, plus one-tap watched/watchlist toggles and a read-only public view for visitors without an account.
+- RIK-10: Added Mis listas — create, rename, and delete your own lists, add or remove titles, drag to reorder, and toggle a list public or private, with a share-link button that's ready for when public sharing ships.
 
 ### Changed
 

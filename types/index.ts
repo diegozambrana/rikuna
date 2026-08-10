@@ -127,6 +127,26 @@ export type UserMediaStatus = {
   manuallyEdited: boolean
 }
 
+export type UserList = {
+  id: string
+  createdAt: string
+  updatedAt: string
+  userId: string
+  name: string
+  slug: string
+  description: string | null
+  isPublic: boolean
+}
+
+export type ListItem = {
+  id: string
+  createdAt: string
+  listId: string
+  mediaId: string
+  sortOrder: number
+  note: string | null
+}
+
 // ---------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------
