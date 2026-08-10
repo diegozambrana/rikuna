@@ -1,4 +1,6 @@
 export { markWatched } from "./markWatched"
+export { markNotWatched } from "./markNotWatched"
 export type { MarkWatchedResult } from "./types"
 export { addToWatchlist } from "./addToWatchlist"
+export { removeFromWatchlist } from "./removeFromWatchlist"
 export { dismissRecommendation } from "./dismissRecommendation"

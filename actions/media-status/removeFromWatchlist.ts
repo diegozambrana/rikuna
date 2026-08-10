@@ -4,11 +4,9 @@ import { revalidatePath } from "next/cache"
 import { createClient } from "@/lib/supabase/server"
 import { MediaStatusServices } from "@/services"
 
-// Shared write path for "add to watchlist" — called from a discovery card
-// and the title detail screen (RIK-9). Throws on failure; callers surface it
-// as a toast. titleSlug is optional so existing callers that don't have it
-// (the discovery card) are unaffected.
-export async function addToWatchlist(mediaId: string, titleSlug?: string): Promise<void> {
+// Sibling to addToWatchlist — the title ficha's "quitar de watchlist"
+// action. Throws on failure; callers surface it as a toast.
+export async function removeFromWatchlist(mediaId: string, titleSlug?: string): Promise<void> {
   const supabase = await createClient()
   const {
     data: { user },
@@ -19,7 +17,7 @@ export async function addToWatchlist(mediaId: string, titleSlug?: string): Promi
   }
 
   const services = new MediaStatusServices(supabase)
-  await services.addToWatchlist(user.id, mediaId)
+  await services.removeFromWatchlist(user.id, mediaId)
 
   revalidatePath("/recomendaciones")
   revalidatePath("/panel")
