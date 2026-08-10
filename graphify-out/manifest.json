@@ -4,7 +4,7 @@
     "hash": "239f3ebf717465dc636818a1a619398d"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/next-env.d.ts": {
-    "mtime": 1786319250.8700898,
+    "mtime": 1786366733.30037,
     "hash": "8195d2c60ce847a459ae9d308d6a5724"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/proxy.ts": {
@@ -32,75 +32,87 @@
     "hash": "dd78252ffa97d19191fbd6cbb5eedc9c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/catalog/parseCatalogFile.ts": {
-    "mtime": 1786305228.721056,
+    "mtime": 1786329267.008982,
     "hash": "5f76e5b3eab79c29303401d78560e218"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/catalog/types.ts": {
-    "mtime": 1786304969.7332678,
+    "mtime": 1786329267.0097854,
     "hash": "2aacad256795f9fef97a4a9360e335cd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/catalog/resolvePlatform.ts": {
-    "mtime": 1786305219.8852835,
+    "mtime": 1786329267.0094287,
     "hash": "6b69cffb95c865750d589a90743b917b"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/catalog/run.ts": {
-    "mtime": 1786305392.8321893,
+    "mtime": 1786329267.009628,
     "hash": "e40a06b1bbc00b37f4189415683285c6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/types/index.ts": {
-    "mtime": 1786322758.5257032,
+    "mtime": 1786329267.0223575,
     "hash": "485716685174acdf102db2d015fd640a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/layout.tsx": {
-    "mtime": 1786320249.7812893,
-    "hash": "5a7e2360119942d4d0d248c743f9d33c"
-  },
-  "/Users/diegoarmandozambranaarze/Projects/rikuna/app/page.tsx": {
-    "mtime": 1786289509.7286344,
-    "hash": "7960d56e7fc48ecd789e2fd32155fa90"
+    "mtime": 1786329382.8168395,
+    "hash": "a07483924025fd21d51a738a9a608fad"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/layout.tsx": {
-    "mtime": 1786302920.4363446,
-    "hash": "4803e65a9417934145d553280aa2fa98"
+    "mtime": 1786365818.5915809,
+    "hash": "9ac9f3566eadec615d6729619e06ae4e"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/panel/page.tsx": {
-    "mtime": 1786314385.903644,
+    "mtime": 1786329266.994539,
     "hash": "be09862b56db91100d949d22d19bbd5f"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/perfil/page.tsx": {
+    "mtime": 1786370834.2354524,
+    "hash": "73649bd100f0da6c285cef56ddc81e01"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/importar/page.tsx": {
-    "mtime": 1786306117.9621751,
+    "mtime": 1786329266.9931393,
     "hash": "02ae8165fc0930bcabef5ee8fb4846fc"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/importar/[batchId]/page.tsx": {
-    "mtime": 1786306165.5379226,
+    "mtime": 1786329266.9928515,
     "hash": "91e64e3dfb462597419c7c6cd6a0d79e"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/biblioteca/page.tsx": {
+    "mtime": 1786368233.4095328,
+    "hash": "6882a3ef790a2c2086064c3d4378b29e"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/recomendaciones/page.tsx": {
-    "mtime": 1786316381.3589816,
+    "mtime": 1786329266.994915,
     "hash": "7f9e5c8bec9d78cb6ad21105c3e7e4a3"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/mis-listas/page.tsx": {
-    "mtime": 1786320646.977881,
+    "mtime": 1786329266.9942193,
     "hash": "6f0095c6012ab4d35c49586ccbb40a84"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/mis-listas/[slug]/page.tsx": {
-    "mtime": 1786320651.291143,
+    "mtime": 1786329266.993978,
     "hash": "53f16c19cc5102b955922063ba8f7835"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/suscripciones/page.tsx": {
-    "mtime": 1786309104.34312,
+    "mtime": 1786329266.995394,
     "hash": "bcf2a6d421bc089152a33287f00675ee"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(marketing)/layout.tsx": {
+    "mtime": 1786367071.5454574,
+    "hash": "ccbc09e5f226dca3fbf79788763c46bc"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(marketing)/page.tsx": {
+    "mtime": 1786366712.3118415,
+    "hash": "cebcb86efcf18f97b10157cf83b59802"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(public)/layout.tsx": {
-    "mtime": 1786322821.1960487,
+    "mtime": 1786329266.996041,
     "hash": "09c56745472b3ac71a332e3b576811c8"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(public)/titulo/[slug]/page.tsx": {
-    "mtime": 1786319107.5189033,
+    "mtime": 1786329266.9963243,
     "hash": "3ad2749825770cec0ae1cbf40bb87d70"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(public)/l/[codigo]/page.tsx": {
-    "mtime": 1786322817.1217537,
+    "mtime": 1786329266.9956949,
     "hash": "975841823c0ed922e205b16404688154"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(auth)/layout.tsx": {
@@ -139,16 +151,24 @@
     "mtime": 1786302920.4379954,
     "hash": "f882aa11250d06ce53f500c50745c52f"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/navigation.ts": {
+    "mtime": 1786365326.0540771,
+    "hash": "44189268ff04dab49819673a5107c89d"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/recommendationThresholds.ts": {
-    "mtime": 1786316244.7764826,
+    "mtime": 1786329267.0006423,
     "hash": "24a9aec2c54ee2f87cb10ede20f7c53f"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/marketingNavigation.ts": {
+    "mtime": 1786366651.6049235,
+    "hash": "918b8266d8d237ab7072a6485a6fe6d9"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/platforms.ts": {
-    "mtime": 1786305019.809928,
+    "mtime": 1786329267.0003736,
     "hash": "b300c6a89c950c0d542452042c4fb066"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/countries.ts": {
-    "mtime": 1786309054.2087123,
+    "mtime": 1786329267.0001059,
     "hash": "69fbf9da5c98b009656abefdde772d0f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/imdbTitleTypeMap.ts": {
@@ -156,84 +176,132 @@
     "hash": "59235eb483d407e94b731e02b4e480ae"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/panel/PanelHeader.tsx": {
-    "mtime": 1786314334.2949195,
+    "mtime": 1786329267.0040276,
     "hash": "568202017ee1470cb4ae830a3912e7ac"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/panel/PanelGrid.tsx": {
-    "mtime": 1786314354.5310068,
+    "mtime": 1786329267.0036507,
     "hash": "4d9f006595cec80a50f0f8d9fe8b7d53"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/panel/EmptySubscriptionState.tsx": {
-    "mtime": 1786314990.6523857,
+    "mtime": 1786329267.0034113,
     "hash": "9986e0f826b982e2e68824cc89b2a24a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/lists/ListGrid.tsx": {
-    "mtime": 1786320416.3091807,
+    "mtime": 1786329267.002323,
     "hash": "520a0bdcaa6f1cdeced6a68ab8342f4c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/lists/SortableListItemCard.tsx": {
-    "mtime": 1786320588.9726384,
+    "mtime": 1786329267.002477,
     "hash": "fadbb0de4e7e3577f4881fd1884e3b05"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/lists/CreateListDialog.tsx": {
-    "mtime": 1786320778.6681747,
+    "mtime": 1786329267.0016477,
     "hash": "03f6e2b877277168841f176196b814d6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/lists/ListDetail.tsx": {
-    "mtime": 1786322808.0778613,
+    "mtime": 1786329267.0020437,
     "hash": "18baed28328fa96a52454daf599432dc"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/lists/TitleSearchAndAdd.tsx": {
-    "mtime": 1786321009.3057475,
+    "mtime": 1786329267.0026958,
     "hash": "372889c7989a441834706d42a04d6d7c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/lists/public/PublicListGrid.tsx": {
-    "mtime": 1786322814.6087704,
+    "mtime": 1786329267.0030825,
     "hash": "b25168f5e37878a74c09c10ef2d1ad8d"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/title/StubNotice.tsx": {
-    "mtime": 1786319143.6431742,
+    "mtime": 1786329267.0065136,
     "hash": "7488b731ac8862e0d035e78e252cebdb"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/title/CastList.tsx": {
-    "mtime": 1786319149.1398497,
+    "mtime": 1786329267.0062606,
     "hash": "263265507281952c4929cc5b2c385448"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/title/TitleActions.tsx": {
-    "mtime": 1786319185.5791626,
+    "mtime": 1786329267.0067773,
     "hash": "6412b4ab25b10e65863b91f37c5ef424"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/title/WhereToWatch.tsx": {
-    "mtime": 1786319153.6700976,
+    "mtime": 1786329267.0073407,
     "hash": "038e99d802e6d25cb5a2aaa55c76fe22"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/title/TitleDetail.tsx": {
-    "mtime": 1786319195.949736,
+    "mtime": 1786329267.0070322,
     "hash": "5bf80c50bed5e497903d36f7ca7054cb"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryTabs.tsx": {
+    "mtime": 1786368538.461828,
+    "hash": "cfa3c5ee1cf29b68ab6fe844636ea11f"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryTable.tsx": {
+    "mtime": 1786368317.0009103,
+    "hash": "f68f2036a84fa0dfb0437bf00a169611"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryScreen.tsx": {
+    "mtime": 1786368551.9238431,
+    "hash": "8d18dfdd66f201fa995d612cdcf6c12c"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/EmptyLibraryState.tsx": {
+    "mtime": 1786368242.187844,
+    "hash": "1ae86dd586fbaa160c2338a52e9fe818"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibrarySearchInput.tsx": {
+    "mtime": 1786368247.1723282,
+    "hash": "5b00f5224033f6fb9a799b2f1c775c8d"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryFilters.tsx": {
+    "mtime": 1786368277.3664954,
+    "hash": "c3840a8aa9f6d00392e02ba8d7a95320"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/recommendations/DiscoveryCard.tsx": {
-    "mtime": 1786316347.3520632,
+    "mtime": 1786329267.0044763,
     "hash": "7082d374e02441cac3b77aa78383ae0f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/recommendations/GenreFilterSelect.tsx": {
-    "mtime": 1786316338.4335701,
+    "mtime": 1786329267.0048022,
     "hash": "fcacd481fca93a81c8e4556a85581976"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/recommendations/RecommendationsScreen.tsx": {
-    "mtime": 1786316411.0507984,
+    "mtime": 1786329267.0050697,
     "hash": "3092eed3a4a1acda8bc18a67aba59cb1"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/subscriptions/ActivateSubscriptionForm.tsx": {
-    "mtime": 1786309454.0639026,
+    "mtime": 1786329267.005396,
     "hash": "82fb0595eaf4fa59285007653225608f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/subscriptions/SubscriptionHistoryTable.tsx": {
-    "mtime": 1786309818.701951,
+    "mtime": 1786329267.0059454,
     "hash": "c28616a2cefb88165f0bcb50b13231f3"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/subscriptions/ActiveSubscriptionsList.tsx": {
-    "mtime": 1786309813.9629762,
+    "mtime": 1786329267.0056787,
     "hash": "66ec4613bb586a668a287ee3eda0f41c"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/profile/ProfileScreen.tsx": {
+    "mtime": 1786370829.5237122,
+    "hash": "6dfb0034bce033927f76eb35f32aa0b7"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/profile/ThemeSwitch.tsx": {
+    "mtime": 1786371249.367932,
+    "hash": "837344cc41f7bb12076a90aa317cc353"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/marketing/Hero.tsx": {
+    "mtime": 1786366660.9335892,
+    "hash": "8e36284795a251002eaecea38ec10b0b"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/marketing/HowItWorks.tsx": {
+    "mtime": 1786366668.8544834,
+    "hash": "659cfee3b78780b04141834273d21ed3"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/marketing/MarketingFooter.tsx": {
+    "mtime": 1786366677.423241,
+    "hash": "2e8a66716f020ab65a1af279f3e6233f"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/marketing/TrustSection.tsx": {
+    "mtime": 1786366673.427967,
+    "hash": "6f83baffeb36310c7dd86070d3969c18"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/ImportSummary.tsx": {
     "mtime": 1786304831.1142993,
@@ -244,19 +312,19 @@
     "hash": "1a868c0e94fc1f6008d40514de31d32e"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/components/BatchDetailTable.tsx": {
-    "mtime": 1786306093.4852734,
+    "mtime": 1786329267.0008821,
     "hash": "9355248a30326e47ffe691fcc1c4a930"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/components/BatchHistoryList.tsx": {
-    "mtime": 1786306110.0570333,
+    "mtime": 1786329267.0011773,
     "hash": "00dbef4e5723aa91765f245bc17e34ee"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/components/ImportResultBadge.tsx": {
-    "mtime": 1786306087.6780334,
+    "mtime": 1786329267.001409,
     "hash": "f5cf4256ec17fd06db8139e8ceb4442f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/supabase/migrations/20260809170000_user_lists_public_code.sql": {
-    "mtime": 1786322757.3963246,
+    "mtime": 1786329267.0219738,
     "hash": "fa349c69e60b96b1da795d5924d2fe0a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/supabase/migrations/20260809134328_create_mvp_schema.sql": {
@@ -272,12 +340,16 @@
     "hash": "ed23b7c96321cd85e2c83e0e39555b29"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/aspect-ratio.tsx": {
-    "mtime": 1786313954.0936399,
+    "mtime": 1786329266.9984322,
     "hash": "8de4cf64a89be01678d3517a122c0c30"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/alert-dialog.tsx": {
-    "mtime": 1786320237.4428203,
+    "mtime": 1786329266.99819,
     "hash": "7fdae5c4eb6b204431ffedb6c6b1817b"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/tabs.tsx": {
+    "mtime": 1786367996.8707066,
+    "hash": "34d894e1966cbe428c90ee218e9cfd2c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/card.tsx": {
     "mtime": 1786302920.4402716,
@@ -287,12 +359,16 @@
     "mtime": 1786304831.1137464,
     "hash": "39724df65b959cc7ad8225fa900e5fec"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/sheet.tsx": {
+    "mtime": 1786365304.7455535,
+    "hash": "8f808aade478920e80f45729e1fb4c3c"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/label.tsx": {
     "mtime": 1786302920.4405582,
     "hash": "436f96dba5d8c8e6af2af8222d6b41b2"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/tooltip.tsx": {
-    "mtime": 1786320237.3011222,
+    "mtime": 1786329266.9998145,
     "hash": "c589fa203d4644f151216a2a1f965966"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/alert.tsx": {
@@ -300,7 +376,7 @@
     "hash": "e8c52ee97e707736f349a1ac3f9219d7"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/switch.tsx": {
-    "mtime": 1786320237.2545037,
+    "mtime": 1786329266.9996338,
     "hash": "4c3de8bcdd081e892347b212188bf523"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/radio-group.tsx": {
@@ -308,11 +384,11 @@
     "hash": "dab241ed149814052e52d1c9da34e754"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/avatar.tsx": {
-    "mtime": 1786318988.183837,
+    "mtime": 1786329266.9987116,
     "hash": "df5f6e2e2bb9e9fb6e407b7c4f001d27"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/dialog.tsx": {
-    "mtime": 1786320237.4129717,
+    "mtime": 1786329266.9989996,
     "hash": "e76e7bbb2d78eb4bd2427b599af3efdc"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/badge.tsx": {
@@ -323,16 +399,24 @@
     "mtime": 1786304831.1139755,
     "hash": "9566ea51336876003ff278a18baa7dbd"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/separator.tsx": {
+    "mtime": 1786365304.6819158,
+    "hash": "3de2dca3e47ab29c4b1f632671545628"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/button.tsx": {
     "mtime": 1786289988.0939283,
     "hash": "83518c62063f68f05d0a776cf3bd2281"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/checkbox.tsx": {
-    "mtime": 1786320237.3370676,
+    "mtime": 1786329266.9988601,
     "hash": "e1288c7fc330749fc4f555d8af1b25c7"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/dropdown-menu.tsx": {
+    "mtime": 1786365304.639614,
+    "hash": "7519bc0deaf5f12d2c08b8e312ed2190"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/select.tsx": {
-    "mtime": 1786308982.3463972,
+    "mtime": 1786329266.999249,
     "hash": "26ddc2eba4a94c12087a52a3499cfa4a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/input.tsx": {
@@ -340,27 +424,51 @@
     "hash": "0290d0e61edc351d75928443cf0a2278"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/skeleton.tsx": {
-    "mtime": 1786313954.0489898,
+    "mtime": 1786329266.9994593,
     "hash": "6c50fa0d8b1ee2bdf2af524a1ad86da5"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/layout/MobileNavTrigger.tsx": {
+    "mtime": 1786365803.694198,
+    "hash": "72d5232a053eea2bdec4828ca515d406"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/layout/MarketingSidebar.tsx": {
+    "mtime": 1786367058.6816688,
+    "hash": "ed852e911e40556525b4a7ab5e99113e"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/layout/ThemeToggle.tsx": {
+    "mtime": 1786365397.1542988,
+    "hash": "ca10f8b43e366d0a15408530850ece72"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/layout/SidebarNavItem.tsx": {
+    "mtime": 1786365419.0683403,
+    "hash": "3d908d2769d57a8e0caabbbf61473406"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/layout/Header.tsx": {
+    "mtime": 1786367054.690448,
+    "hash": "4ff43e82c2c21cc7794a0d273208cc27"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/components/layout/Sidebar.tsx": {
+    "mtime": 1786365798.6201816,
+    "hash": "3c90a2c81be0d9c5c3d370bb2d1e5a9a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/providers/UserProvider.tsx": {
     "mtime": 1786302920.439809,
     "hash": "834a6a02b75ee9f727177a9f845426ec"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/Dialog/AddToListDialog.tsx": {
-    "mtime": 1786320764.8838289,
+    "mtime": 1786329266.997422,
     "hash": "f4951d684479316fc1107cba120c2d8c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/AvailabilityBadge/AvailabilityBadge.tsx": {
-    "mtime": 1786319139.6445467,
+    "mtime": 1786329266.9971411,
     "hash": "6b9962e8ce54c6afe34d69712af177cf"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/Table/DataTable.tsx": {
-    "mtime": 1786306207.4082232,
-    "hash": "b5f2197170d9a2fbda39f58fa319aae6"
+    "mtime": 1786368307.2293842,
+    "hash": "35afb685b7b7075e696c64113aa10a81"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/MediaCard/index.tsx": {
-    "mtime": 1786314251.8733344,
+    "mtime": 1786329266.9978285,
     "hash": "bed0d9fe62f751a1d8e9284dcb4b39fd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/hooks/useSession.ts": {
@@ -376,55 +484,55 @@
     "hash": "6fed8c406a464ecb4a819af1d2cd873f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/imdb-import/getImportBatchDetail.ts": {
-    "mtime": 1786305989.2063587,
+    "mtime": 1786329266.9805,
     "hash": "cd2f85df4104e392d63c0257ccff338b"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/imdb-import/index.ts": {
-    "mtime": 1786305997.0659273,
+    "mtime": 1786329266.981163,
     "hash": "5c1a61895afaf67a8abe5e11e3f65b5c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/imdb-import/getImportBatches.ts": {
-    "mtime": 1786305985.347099,
+    "mtime": 1786329266.9807854,
     "hash": "843ae70e6a138e7ff023f99e81078596"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/renameList.ts": {
-    "mtime": 1786320278.9471664,
+    "mtime": 1786329266.9827225,
     "hash": "5c10c4c562ace21cb67c48948901e1a9"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/removeListItem.ts": {
-    "mtime": 1786320292.0443554,
+    "mtime": 1786329266.9825733,
     "hash": "b0eb090b9efcb4eb30f58f5c0367fe01"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/addListItem.ts": {
-    "mtime": 1786320288.740156,
+    "mtime": 1786329266.9814143,
     "hash": "91296b42a3cb6f0b4def26a452bece72"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/setListVisibility.ts": {
-    "mtime": 1786322799.1987307,
+    "mtime": 1786329266.9831288,
     "hash": "2d5c7340017d58dc941d1ba7a0b6b3a8"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/getListsContainingMedia.ts": {
-    "mtime": 1786320312.9254808,
+    "mtime": 1786329266.9823213,
     "hash": "a51e351895ea4c311cc549bbabe2e48a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/types.ts": {
-    "mtime": 1786322797.2470312,
+    "mtime": 1786329266.9835672,
     "hash": "080f624d659c28fbd9300c516077e658"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/deleteList.ts": {
-    "mtime": 1786320283.0013382,
+    "mtime": 1786329266.9818244,
     "hash": "9f9521f47ebe22101c22646b58666414"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/createList.ts": {
-    "mtime": 1786320271.2561097,
+    "mtime": 1786329266.9816206,
     "hash": "b1ef497fa3dd956f1481109d5741384d"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/index.ts": {
-    "mtime": 1786320322.2002351,
+    "mtime": 1786329266.9824378,
     "hash": "41e4dd8b434b408b8acb27d385effb0e"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/lists/reorderListItems.ts": {
-    "mtime": 1786320295.353351,
+    "mtime": 1786329266.982849,
     "hash": "aef05c8b6720020f25e74df4c4e50528"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/auth/updatePassword.ts": {
@@ -456,88 +564,92 @@
     "hash": "d1a88ad13b068255b143a49c53f2ed06"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/recommendations/getGenres.ts": {
-    "mtime": 1786316312.1611576,
+    "mtime": 1786329266.9873185,
     "hash": "097865935d48a53348dffbf20fecc59e"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/recommendations/getMonthlyWatchlist.ts": {
-    "mtime": 1786314198.9246044,
+    "mtime": 1786329266.9875956,
     "hash": "6815bb06824e76690787bad0e8652bf7"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/recommendations/index.ts": {
-    "mtime": 1786316316.61545,
+    "mtime": 1786329266.9887333,
     "hash": "a654362bf02ceff1429766192b8f9800"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/recommendations/getRecommendations.ts": {
-    "mtime": 1786316305.7575374,
+    "mtime": 1786329266.9883497,
     "hash": "598cdf8226b936ae29bec25972f110a3"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/activateSubscriptionAction.ts": {
-    "mtime": 1786309045.6195662,
+    "mtime": 1786329266.9908402,
     "hash": "7d2ac2c41aad6a959ecca3b0bb6e6da4"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/getActiveSubscriptionsWithPlatformAction.ts": {
-    "mtime": 1786314363.5686233,
+    "mtime": 1786329266.9915206,
     "hash": "668ee15ff13b340d0179f7cbca3026b3"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/getKnownPlatformsAction.ts": {
-    "mtime": 1786309041.425637,
+    "mtime": 1786329266.9917624,
     "hash": "f558f29fbea4b97838fcb87f7e61fcc6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/getActiveSubscriptionsAction.ts": {
-    "mtime": 1786309037.3765934,
+    "mtime": 1786329266.9910772,
     "hash": "72310f2344b7a25f50e9e5bea36994c9"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/types.ts": {
-    "mtime": 1786309035.7515676,
+    "mtime": 1786329266.9926596,
     "hash": "af9f5010c242e89c8f94470f363b72ea"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/getSubscriptionHistoryAction.ts": {
-    "mtime": 1786309039.5567567,
+    "mtime": 1786329266.992101,
     "hash": "707b65b8e4dab852f19c675bac37d9d1"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/subscriptions/index.ts": {
-    "mtime": 1786314367.1977942,
+    "mtime": 1786329266.9924412,
     "hash": "587f299c9870c7eb8026d4eb166b2754"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/dismissRecommendation.ts": {
-    "mtime": 1786316325.8565996,
+    "mtime": 1786329266.9842787,
     "hash": "b4c1d44ee16fb2b28eaa29d106910217"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/markWatched.ts": {
-    "mtime": 1786319081.0231245,
+    "mtime": 1786329266.984963,
     "hash": "e64af1c7cbf72e4b6ac55a81e9d08efd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/types.ts": {
-    "mtime": 1786314205.9924464,
+    "mtime": 1786329266.9857028,
     "hash": "629a0e7966e9f869e79650873cd2ae2e"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/addToWatchlist.ts": {
-    "mtime": 1786319092.1658094,
+    "mtime": 1786329266.9839807,
     "hash": "a8afc32184fef7c60c5c8df04daf15f6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/index.ts": {
-    "mtime": 1786319098.6764903,
+    "mtime": 1786329266.984498,
     "hash": "f6f9b7703eba9e38e0fb34ef445a785c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/removeFromWatchlist.ts": {
-    "mtime": 1786319095.9667194,
+    "mtime": 1786329266.9852128,
     "hash": "6ce2ea5ee9e447a96c25e97eed2e1aa6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media-status/markNotWatched.ts": {
-    "mtime": 1786319086.3117924,
+    "mtime": 1786329266.9847221,
     "hash": "66a37a934a4c8fbf7de845d020bf84e1"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media/getTitleDetail.ts": {
-    "mtime": 1786319070.6602244,
+    "mtime": 1786329266.9860077,
     "hash": "982fd795c98295be0422e7dbb15db185"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media/searchTitles.ts": {
-    "mtime": 1786320316.4395604,
+    "mtime": 1786329266.986969,
     "hash": "48387a6fa4aa99b27a6f073ce162e4ad"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media/index.ts": {
-    "mtime": 1786320319.1150422,
-    "hash": "5eae3ac2ab964f75e0032a4bff377454"
+    "mtime": 1786368126.173918,
+    "hash": "3675ed555f34acf8c209cfe54ec1c844"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/media/getLibrary.ts": {
+    "mtime": 1786368205.1275022,
+    "hash": "e5e870de5f7bede0aa477e12fbbbd206"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/slug.ts": {
     "mtime": 1786304831.115027,
@@ -548,11 +660,11 @@
     "hash": "5a6fd53fdcf2be529e9cc0b718fde352"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/lists/getPublicListUrl.ts": {
-    "mtime": 1786322763.091078,
+    "mtime": 1786329267.0100336,
     "hash": "967a02d9acbee7fda680bc7a5d99ec64"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/supabase/admin.ts": {
-    "mtime": 1786305211.6576755,
+    "mtime": 1786329267.0103576,
     "hash": "6e560148a8c73148a9d66a295654f9db"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/supabase/client.ts": {
@@ -560,56 +672,56 @@
     "hash": "d8647a758847f0af2f42aadbc269b833"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/supabase/proxy.ts": {
-    "mtime": 1786302920.4410028,
-    "hash": "5b1aa68f42c24f0d606055ba1979ef14"
+    "mtime": 1786366595.5012205,
+    "hash": "a7cae6a2d0c497b9790c083c5821562a"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/supabase/server.ts": {
     "mtime": 1786302920.4412694,
     "hash": "f36ba84ef0e24bfb5977f70deaccddd3"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/RecommendationServices.ts": {
-    "mtime": 1786316277.534032,
+    "mtime": 1786329267.015114,
     "hash": "31b14695c9185bc74f16fb7d272cf0d7"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/ImdbImportServices.ts": {
-    "mtime": 1786305980.808709,
+    "mtime": 1786329267.0133913,
     "hash": "40d476f21601766d284e75104c31c030"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/index.ts": {
-    "mtime": 1786322791.8165116,
-    "hash": "1d59d12b590814292db95d7ea0315af4"
+    "mtime": 1786368090.350987,
+    "hash": "9b179a45880d4c2c5057056fda5cf2cd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/CatalogSnapshotServices/index.ts": {
-    "mtime": 1786305334.6850662,
+    "mtime": 1786329267.012782,
     "hash": "97d0c4223fb38b16a4ae70ed8b9d1a4d"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/SubscriptionServices/index.ts": {
-    "mtime": 1786314140.7541542,
+    "mtime": 1786329267.0156524,
     "hash": "bfebcc34b66ca64bd62eea0296350c6d"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/MediaStatusServices/index.ts": {
-    "mtime": 1786319053.822966,
-    "hash": "858d9c7250e7f6290db27bf507bddca4"
+    "mtime": 1786368038.9613059,
+    "hash": "65c7f464185f9ff45839e46f8b95f91c"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/ListServices/index.ts": {
-    "mtime": 1786322881.5388112,
+    "mtime": 1786329267.0137606,
     "hash": "1d39720a6a78311ab4024d4b51160a18"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/MediaServices/index.ts": {
-    "mtime": 1786320178.6665192,
-    "hash": "3fe5f13f3773aae2db081c5ac1fdc8dd"
+    "mtime": 1786368062.5138497,
+    "hash": "95983c4d51d13701fc9b0b76834e08d9"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/MediaAvailabilityServices/index.ts": {
-    "mtime": 1786319232.4283614,
-    "hash": "b9b00a2c74945d1e488c7790df77fa64"
+    "mtime": 1786368086.2718155,
+    "hash": "2fb925ecba92dfdbe1c2e89854fda847"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ARCHITECTURE.md": {
-    "mtime": 1786289718.3518934,
-    "hash": "6f80e05449f731d217671d72f1c29639"
+    "mtime": 1786330354.236194,
+    "hash": "d8c187a98c0d0a033dc636151509e180"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/CHANGELOG.md": {
-    "mtime": 1786321776.0200593,
-    "hash": "ef6a5c2ea6edb0cc907bea990c793f16"
+    "mtime": 1786369390.2341294,
+    "hash": "60bd687d1115c3fc8a34bafda894a028"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/README.md": {
     "mtime": 1786289509.728117,
@@ -622,6 +734,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/CLAUDE.md": {
     "mtime": 1786319256.3378515,
     "hash": "d2049dd74b445bfb8b1cb8dd0c16cb22"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/RIKUNA-PRD-vistas-y-estilo-rikuna-v2.md": {
+    "mtime": 1786330289.0245037,
+    "hash": "bef84ba9627d45352b318921dfefa3ad"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/RIKUNA-BACKLOG-v1-rikuna.md": {
     "mtime": 1786291773.538554,
@@ -659,6 +775,14 @@
     "mtime": 1786292803.060607,
     "hash": "10e5344225c2e7df643ff3ec27136e3b"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-15_perfil_cuenta_esp.md": {
+    "mtime": 1786332005.64381,
+    "hash": "b5bc47a0bc62bffd181698a6d1a9c46f"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-12_app_shell_navigation_esp.md": {
+    "mtime": 1786331136.0884569,
+    "hash": "0b4715d19175fc83df0b384c8e461f38"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-7_monthly_watch_panel_esp.md": {
     "mtime": 1786292776.2362614,
     "hash": "131c3a80858dc128b40c37e5532bd71c"
@@ -666,6 +790,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-9_title_detail_page_esp.md": {
     "mtime": 1786292937.6297748,
     "hash": "3347f5c1a6fd433da0b0b02524d870d9"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-14_mi_biblioteca_esp.md": {
+    "mtime": 1786331810.846276,
+    "hash": "156dcc69cf4308e0071f9067efb5ccdf"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-11_public_list_sharing_esp.md": {
     "mtime": 1786292986.8182487,
@@ -679,6 +807,10 @@
     "mtime": 1786292655.1204815,
     "hash": "0dbeac2729f8482c54f859dd2a5aa9c7"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-14_mi_biblioteca.md": {
+    "mtime": 1786331667.888787,
+    "hash": "3ee22f72a1237f59ec224d66d9a15716"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-8_discovery_recommendations_esp.md": {
     "mtime": 1786292813.631677,
     "hash": "6b42fd495e6476c52dcfb70a704efaf1"
@@ -687,9 +819,17 @@
     "mtime": 1786292538.7260737,
     "hash": "d76fa3ae9c21d43cddb917bde6507956"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-12_app_shell_navigation.md": {
+    "mtime": 1786330993.9795568,
+    "hash": "cd903494c7fa6db329d72ec9e20013e9"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-5_import_batch_detail.md": {
     "mtime": 1786292620.5252287,
     "hash": "d36a167845cb84bc72920661345f337a"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-13_marketing_home_esp.md": {
+    "mtime": 1786331441.4464643,
+    "hash": "9d3d10311c15d66f2eb19c32b979efc5"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-6_active_subscription.md": {
     "mtime": 1786292521.9898722,
@@ -698,6 +838,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-9_title_detail_page.md": {
     "mtime": 1786292744.507704,
     "hash": "ff0376e6e5374de989228918f9a10873"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-13_marketing_home.md": {
+    "mtime": 1786331321.2771547,
+    "hash": "ff45cd78277380976c9019b579d397fd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-2_auth_and_route_guards.md": {
     "mtime": 1786292671.7262218,
@@ -723,16 +867,24 @@
     "mtime": 1786292828.1865916,
     "hash": "917f58e1a4ef5259a0608a5f3be5da39"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-15_perfil_cuenta.md": {
+    "mtime": 1786331921.8234596,
+    "hash": "74460709646100f93985d6d123e1dc51"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/backlog/RIK-11_public_list_sharing.md": {
     "mtime": 1786292818.138941,
     "hash": "100c7fa4bcac39a16b6d2baa405ee049"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091909_RIK-8_discovery_recommendations.md": {
-    "mtime": 1786317015.5980537,
+    "mtime": 1786329267.0195215,
     "hash": "863c81cf45badf4c31c752c2ac2f6898"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608100943_RIK-14_mi_biblioteca.md": {
+    "mtime": 1786369463.7658098,
+    "hash": "7ca76346c37392c5ba34f3381283092a"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091839_RIK-7_monthly_watch_panel.md": {
-    "mtime": 1786315191.1017659,
+    "mtime": 1786329267.0190706,
     "hash": "8845aa5091ca4292a2133d58033957ef"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091350_RIK-1_database_schema_rls.md": {
@@ -743,12 +895,16 @@
     "mtime": 1786302920.4436111,
     "hash": "c1a59575a110fdd17f10e1c47f0ace0e"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608100910_RIK-13_marketing_home.md": {
+    "mtime": 1786367456.2642186,
+    "hash": "9f225c7670c4416588bbf1d2833b4563"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091615_RIK-5_import_batch_detail.md": {
-    "mtime": 1786306608.4851277,
+    "mtime": 1786329267.0177884,
     "hash": "2fd0703cd7e904aaa5306e6b9ee09a9b"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608092029_RIK-10_user_lists_management.md": {
-    "mtime": 1786321832.8362963,
+    "mtime": 1786329267.020819,
     "hash": "7a417261add0e2801e8b3ce0431c2577"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/README.md": {
@@ -756,20 +912,28 @@
     "hash": "2a54fd11b98923b8609b37e100f5b4e6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091712_RIK-6_active_subscription.md": {
-    "mtime": 1786309969.843334,
+    "mtime": 1786329267.0184057,
     "hash": "443ff230232df00d8a962a02da2625f7"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091954_RIK-9_title_detail_page.md": {
-    "mtime": 1786319711.2234757,
+    "mtime": 1786329267.020097,
     "hash": "928c6c3401bf4ff301b0204094e962d5"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608092054_RIK-11_public_list_sharing.md": {
+    "mtime": 1786329267.0213437,
+    "hash": "4e906057b91eeef3f1d19ba95b018803"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091559_RIK-3_catalog_ingestion.md": {
-    "mtime": 1786305599.775465,
+    "mtime": 1786329267.016842,
     "hash": "832db665d2f2fbdb3c96dcdb76ae5a30"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091531_RIK-4_imdb_import.md": {
     "mtime": 1786304831.1176198,
     "hash": "76de7a3ddc935037fcdc7b341d877462"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608100907_RIK-12_app_shell_navigation.md": {
+    "mtime": 1786367275.6955423,
+    "hash": "f06fc80f6f038d92bda897a52cbaa529"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/public/file.svg": {
     "mtime": 1786289509.728117,
