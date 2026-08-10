@@ -10,7 +10,7 @@ const PROTECTED_PREFIXES = [
   "/perfil",
 ]
 
-const AUTH_ONLY_PATHS = ["/auth/login", "/auth/sign-up"]
+const AUTH_ONLY_PATHS = ["/auth/login", "/auth/sign-up", "/"]
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
@@ -53,7 +53,9 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  const isAuthOnlyPage = AUTH_ONLY_PATHS.some((path) => pathname.startsWith(path))
+  const isAuthOnlyPage = AUTH_ONLY_PATHS.some((path) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path)
+  )
   if (isAuthOnlyPage && user) {
     const url = request.nextUrl.clone()
     url.pathname = "/panel"
