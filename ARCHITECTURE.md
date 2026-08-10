@@ -6,17 +6,17 @@ For step-by-step guidance when adding a new resource or screen, mirror the patte
 
 ## Technology stack
 
-| Layer               | Choice                                                                         |
-| ------------------- | ------------------------------------------------------------------------------ |
-| Framework           | **Next.js 16** (App Router), **React 19**                                      |
-| Language            | **TypeScript** (`strict`)                                                      |
-| Backend / data      | **Supabase** (Postgres 15+, Auth, Row Level Security for per-user isolation)   |
-| Supabase in Next.js | **`@supabase/ssr`** — separate server and browser clients                      |
-| Client state        | **Zustand** (feature stores + global user store)                              |
+| Layer               | Choice                                                                                  |
+| ------------------- | --------------------------------------------------------------------------------------- |
+| Framework           | **Next.js 16** (App Router), **React 19**                                               |
+| Language            | **TypeScript** (`strict`)                                                               |
+| Backend / data      | **Supabase** (Postgres 15+, Auth, Row Level Security for per-user isolation)            |
+| Supabase in Next.js | **`@supabase/ssr`** — separate server and browser clients                               |
+| Client state        | **Zustand** (feature stores + global user store)                                        |
 | UI                  | **Tailwind CSS 4**, **shadcn/ui** (style: `lyra`, base color: `mist`), **Lucide** icons |
-| Forms / tables      | **react-hook-form**, **TanStack React Table**                                  |
-| Theming             | **next-themes** (dark mode default)                                            |
-| Toasts              | **Sonner**                                                                     |
+| Forms / tables      | **react-hook-form**, **TanStack React Table**                                           |
+| Theming             | **next-themes** (dark mode default)                                                     |
+| Toasts              | **Sonner**                                                                              |
 
 Import alias: `@/*` maps to the repository root (`tsconfig.json`).
 
@@ -68,35 +68,37 @@ flowchart LR
 ## Routing (`app/`)
 
 - **Root layout** (`app/layout.tsx`): fonts, global CSS, `ThemeProvider` (dark default), `Toaster`.
-- **Route group `(auth)`**: `app/auth/*` — login, sign-up, password flows, and route handlers such as `auth/callback` and `auth/confirm` for Supabase Auth. No guard needed; redirects to `/panel` if already authenticated.
-- **Route group `(app)`**: authenticated area — nav shell, `AuthCheck` using `createClient()` from `@/lib/supabase/server`, redirects unauthenticated users to `/auth/login`, loads `getCurrentUser()`, wraps children in `UserProvider`.
-- **Route group `(public)`**: unauthenticated, read-only content — public lists and public title pages. **Must not** sit inside `(app)` or be touched by its auth guard; this is what makes list sharing work without an account (see `schema-basedatos-rikuna.md`, Section 9.2).
+- **Route group `(marketing)`**: `app/(marketing)/page.tsx` → `/`. Public entry point (previously missing). Redirects to `/panel` if a session already exists; otherwise renders the Header + Sidebar in their unauthenticated variant (see `vistas-y-estilo-rikuna.md`, Section 1.6).
+- **Route group `(auth)`**: `app/auth/*` — login, sign-up, password flows, and route handlers such as `auth/callback` and `auth/confirm` for Supabase Auth. No guard needed; redirects to `/panel` if already authenticated. No Header/Sidebar shell.
+- **Route group `(app)`**: authenticated area — `Header` (with avatar/user menu) + `Sidebar` (authenticated variant) shell, `AuthCheck` using `createClient()` from `@/lib/supabase/server`, redirects unauthenticated users to `/auth/login`, loads `getCurrentUser()`, wraps children in `UserProvider`.
+- **Route group `(public)`**: unauthenticated, read-only content — public lists and public title pages. Minimal shell only (logo + "Iniciar sesión"), **no sidebar** — intentional, so a shared list link doesn't drag the recipient into full site navigation. **Must not** sit inside `(app)` or be touched by its auth guard; this is what makes list sharing work without an account (see `schema-basedatos-rikuna.md`, Section 9.2).
 
 **Routes (per `vistas-y-estilo-rikuna.md`):**
 
-| Area          | Paths                                                                                     |
-| ------------- | ------------------------------------------------------------------------------------------ |
-| Auth          | `/auth/login`, `/auth/sign-up`, `/auth/forgot-password`, `/auth/update-password`          |
-| Panel         | `/panel` ("Qué ver este mes" — landing after login)                                        |
-| Recomendaciones | `/recomendaciones`                                                                       |
-| Biblioteca    | `/biblioteca`                                                                              |
-| Título (auth) | `/titulo/[slug]`                                                                            |
-| Listas        | `/mis-listas`, `/mis-listas/[slug]`                                                        |
-| Suscripciones | `/suscripciones`                                                                            |
-| Importación   | `/importar`, `/importar/[batchId]`                                                          |
-| Perfil        | `/perfil`                                                                                    |
-| **Público**   | `/l/[codigo]` (lista pública), `/titulo/[slug]` (variante de solo lectura sin acciones personales) |
+| Area            | Paths                                                                                              | Shell                     |
+| --------------- | -------------------------------------------------------------------------------------------------- | ------------------------- |
+| Marketing       | `/` (Inicio)                                                                                       | Header + Sidebar (unauth) |
+| Auth            | `/auth/login`, `/auth/sign-up`, `/auth/forgot-password`, `/auth/update-password`                   | None                      |
+| Panel           | `/panel` ("Qué ver este mes" — landing after login)                                                | Header + Sidebar (auth)   |
+| Recomendaciones | `/recomendaciones`                                                                                 | Header + Sidebar (auth)   |
+| Biblioteca      | `/biblioteca`                                                                                      | Header + Sidebar (auth)   |
+| Título (auth)   | `/titulo/[slug]`                                                                                   | Header + Sidebar (auth)   |
+| Listas          | `/mis-listas`, `/mis-listas/[slug]`                                                                | Header + Sidebar (auth)   |
+| Suscripciones   | `/suscripciones`                                                                                   | Header + Sidebar (auth)   |
+| Importación     | `/importar`, `/importar/[batchId]`                                                                 | Header + Sidebar (auth)   |
+| Perfil          | `/perfil`                                                                                          | Header + Sidebar (auth)   |
+| **Público**     | `/l/[codigo]` (lista pública), `/titulo/[slug]` (variante de solo lectura sin acciones personales) | Minimal (logo only)       |
 
-Because there **is** a public, unauthenticated read path (`(public)`), route protection must be enforced explicitly in `middleware.ts` (or the `(app)` layout guard) rather than defaulting every route to "protected" — the opposite risk from a fully private admin tool. `lib/supabase/proxy.ts` exports `updateSession()`, called from `middleware.ts`, and must special-case `(public)` and `auth/*` paths as pass-through.
+Because there **is** public, unauthenticated content (`(marketing)` and `(public)`), route protection must be enforced explicitly in `middleware.ts` (or the `(app)` layout guard) rather than defaulting every route to "protected" — the opposite risk from a fully private admin tool. `lib/supabase/proxy.ts` exports `updateSession()`, called from `middleware.ts`, and must special-case `(marketing)`, `(public)`, and `auth/*` paths as pass-through.
 
 ## Supabase integration (`lib/supabase/`)
 
-| Module      | Role                                                                                                          |
-| ----------- | ------------------------------------------------------------------------------------------------------------- |
-| `server.ts` | `createServerClient` bound to Next.js `cookies()` — use in Server Components, Server Actions, services called from them. |
-| `client.ts` | `createBrowserClient` for client components when browser access to Supabase is required.                      |
+| Module      | Role                                                                                                                                                                                          |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `server.ts` | `createServerClient` bound to Next.js `cookies()` — use in Server Components, Server Actions, services called from them.                                                                      |
+| `client.ts` | `createBrowserClient` for client components when browser access to Supabase is required.                                                                                                      |
 | `admin.ts`  | **Service role** client — server-only; used exclusively by `ingestion/` routines (catalog snapshot loading, stub enrichment). Never imported from client bundles or from user-facing actions. |
-| `proxy.ts`  | Session refresh + route-guard helper consumed by `middleware.ts`.                                               |
+| `proxy.ts`  | Session refresh + route-guard helper consumed by `middleware.ts`.                                                                                                                             |
 
 Environment variables include `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` (ingestion only).
 
@@ -112,12 +114,12 @@ The canonical schema is described in full, with rationale, in `schema-basedatos-
 
 **Core domains in Postgres (not exhaustive — see schema doc for full DDL):**
 
-| Domain        | Main tables / notes                                                                 |
-| ------------- | ------------------------------------------------------------------------------------ |
+| Domain        | Main tables / notes                                                                      |
+| ------------- | ---------------------------------------------------------------------------------------- |
 | Catalog       | `media_items`, `genres`, `media_genres`, `people`, `media_people`, `seasons`, `episodes` |
-| Availability  | `platforms`, `catalog_snapshots`, `media_availability`                               |
-| Personal data | `user_subscriptions`, `user_media_status`, `user_lists`, `list_items`                |
-| Imports       | `imdb_import_batches`, `imdb_import_rows`                                            |
+| Availability  | `platforms`, `catalog_snapshots`, `media_availability`                                   |
+| Personal data | `user_subscriptions`, `user_media_status`, `user_lists`, `list_items`                    |
+| Imports       | `imdb_import_batches`, `imdb_import_rows`                                                |
 
 Always read the latest files in `supabase/migrations/` and `schema-basedatos-rikuna.md` before changing data access code — the availability model in particular has non-obvious upsert/expire logic (Section 3.3 of the schema doc).
 
@@ -126,7 +128,7 @@ Always read the latest files in `supabase/migrations/` and `schema-basedatos-rik
 Rikuna has two ingestion paths, both server-only and both distinct from normal user-triggered Server Actions:
 
 1. **Availability snapshots** (`ingestion/catalog/`) — consumes the periodic JSON produced by the external platform+country process. Creates a `catalog_snapshots` row, upserts `media_items` (by `imdb_id`) and `media_availability`, then expires anything not seen in that snapshot. Runs on a schedule, using the `admin.ts` service-role client (no end-user session involved).
-2. **IMDb CSV import** (`ingestion/imdb-import/`) — triggered by an authenticated user uploading their *Ratings* or *Watchlist* export from `/importar`. Runs under the user's own session (RLS applies normally; no service role needed here since the user is only ever writing their own rows). Creates stub `media_items` for unmatched titles instead of discarding them.
+2. **IMDb CSV import** (`ingestion/imdb-import/`) — triggered by an authenticated user uploading their _Ratings_ or _Watchlist_ export from `/importar`. Runs under the user's own session (RLS applies normally; no service role needed here since the user is only ever writing their own rows). Creates stub `media_items` for unmatched titles instead of discarding them.
 
 Both write their run history (`catalog_snapshots`, `imdb_import_batches` / `imdb_import_rows`) so failures and partial matches are inspectable from the UI (`/importar/[batchId]`).
 
@@ -134,13 +136,14 @@ Both write their run history (`catalog_snapshots`, `imdb_import_batches` / `imdb
 
 Organized by domain with barrel `index.ts` files:
 
-| Folder            | Purpose                                                                 |
-| ----------------- | ------------------------------------------------------------------------ |
-| `media`           | Title detail reads, search/filter for biblioteca                       |
-| `media-status`    | Mark watched / want-to-watch / dismissed (`user_media_status` writes)  |
-| `subscriptions`   | Activate/close `user_subscriptions`                                    |
-| `lists`           | CRUD for `user_lists` / `list_items`, visibility toggle, share link    |
-| `imdb-import`     | Accept upload, kick off `ingestion/imdb-import/`, expose batch status  |
+| Folder            | Purpose                                                                       |
+| ----------------- | ----------------------------------------------------------------------------- |
+| `auth`            | Sign in, sign up, sign out (used by the Header's user menu), password reset   |
+| `media`           | Title detail reads, search/filter for biblioteca                              |
+| `media-status`    | Mark watched / want-to-watch / dismissed (`user_media_status` writes)         |
+| `subscriptions`   | Activate/close `user_subscriptions`                                           |
+| `lists`           | CRUD for `user_lists` / `list_items`, visibility toggle, share link           |
+| `imdb-import`     | Accept upload, kick off `ingestion/imdb-import/`, expose batch status         |
 | `recommendations` | "Qué ver este mes" and discovery queries (Sections 8.1–8.2 of the schema doc) |
 
 Typical responsibilities:
@@ -169,22 +172,22 @@ Each domain folder exports a service class that accepts a `SupabaseClient` in th
 
 Feature modules mirror product areas defined in `vistas-y-estilo-rikuna.md`:
 
-| Feature           | Typical structure                                            |
-| ------------------ | -------------------------------------------------------------- |
-| `panel`            | "Qué ver este mes" screen, hooks, store                      |
-| `recommendations`  | Discovery + watchlist-available sections, genre filter        |
-| `library`          | Tabs (Vistas / Quiero ver / Todas), filters, search            |
-| `title`            | Detail view — shared between authenticated and public variants, with an `isPublicView` flag gating the personal-action buttons |
-| `lists`            | `list`, `detail`, `create`, visibility toggle, share-link component |
-| `subscriptions`    | Active subscription card, history table, activate form         |
-| `import`           | Upload dropzone, batch history, batch detail table             |
-| `profile`          | Account settings, theme toggle                                 |
+| Feature           | Typical structure                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `panel`           | "Qué ver este mes" screen, hooks, store                                                                                        |
+| `recommendations` | Discovery + watchlist-available sections, genre filter                                                                         |
+| `library`         | Tabs (Vistas / Quiero ver / Todas), filters, search                                                                            |
+| `title`           | Detail view — shared between authenticated and public variants, with an `isPublicView` flag gating the personal-action buttons |
+| `lists`           | `list`, `detail`, `create`, visibility toggle, share-link component                                                            |
+| `subscriptions`   | Active subscription card, history table, activate form                                                                         |
+| `import`          | Upload dropzone, batch history, batch detail table                                                                             |
+| `profile`         | Account settings, theme toggle                                                                                                 |
 
 **Pattern (all features):** Server Components fetch via actions/services and pass **initial data** into client feature components. Client hooks combine **Zustand** (filters, UI flags) with **Server Actions** for mutations.
 
 ## Shared UI (`components/`)
 
-- **`layout/`** — `Header`, `Nav` (authenticated shell only — the `(public)` layout is intentionally minimal, logo + auth links), responsive sidebar if needed.
+- **`layout/`** — `Header` (logo, user avatar + `DropdownMenu` when authenticated, "Iniciar sesión"/"Crear cuenta" buttons when not — full spec in `vistas-y-estilo-rikuna.md` Section 1.6) and `Sidebar` (two content variants, authenticated vs. not, same section). Both render in `(marketing)` and `(app)`; `(public)` uses a stripped-down header only, no sidebar, no user menu.
 - **`ui/`** — shadcn-generated primitives, `style: lyra`, `baseColor: mist` (see `vistas-y-estilo-rikuna.md` for the full component-per-screen mapping).
 - **`MediaCard/`** — poster + title + year + rating badge; the single most reused component across panel, recommendations, biblioteca, lists, and public list view.
 - **`AvailabilityBadge/`** — shows which platform(s) a title is on, highlighting the user's active subscription.
