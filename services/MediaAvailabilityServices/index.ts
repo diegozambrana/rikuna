@@ -1,6 +1,39 @@
 import type { SupabaseClient } from "@supabase/supabase-js"
 import type { MediaAvailabilityOfferType, Platform } from "@/types"
 
+// Same chunking/pagination constants as RecommendationServices — mirrored
+// locally since those helpers are private to that class (RIK-14 constraint:
+// reimplement the logic, don't reach into its internals).
+const PAGE_SIZE = 1000
+const ID_CHUNK_SIZE = 200
+
+async function paginate<T>(
+  build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>
+): Promise<T[]> {
+  const all: T[] = []
+  let from = 0
+
+  while (true) {
+    const { data, error } = await build(from, from + PAGE_SIZE - 1)
+    if (error) throw error
+    all.push(...(data ?? []))
+    if (!data || data.length < PAGE_SIZE) break
+    from += PAGE_SIZE
+  }
+
+  return all
+}
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size))
+  }
+  return chunks
+}
+
+export type ActiveSubscriptionPair = { platformId: string; country: string }
+
 export type UpsertAvailabilityInput = {
   mediaId: string
   platformId: string
@@ -77,6 +110,40 @@ export class MediaAvailabilityServices {
           providerIdTv: row.platforms!.provider_id_tv,
         },
       }))
+  }
+
+  /**
+   * Biblioteca "solo disponible en mi suscripción activa" filter (RIK-14).
+   * Byte-identical matching semantics to RecommendationServices' private
+   * getAvailableMediaIds/getAvailableMediaIdsForPairs (is_available=true,
+   * OR-matched across the active pairs' platform_id+country) — promoted here
+   * as a public method per ARCHITECTURE.md's Services table instead of
+   * reaching into that class's private methods or duplicating the class.
+   */
+  async getAvailableMediaIds(mediaIds: string[], activePairs: ActiveSubscriptionPair[]): Promise<string[]> {
+    if (mediaIds.length === 0 || activePairs.length === 0) return []
+
+    const pairFilter = activePairs
+      .map((pair) => `and(platform_id.eq.${pair.platformId},country.eq.${pair.country})`)
+      .join(",")
+
+    const available = new Set<string>()
+
+    for (const idChunk of chunk(mediaIds, ID_CHUNK_SIZE)) {
+      const rows = await paginate<{ media_id: string }>((from, to) =>
+        this.client
+          .from("media_availability")
+          .select("media_id")
+          .in("media_id", idChunk)
+          .eq("is_available", true)
+          .or(pairFilter)
+          .range(from, to)
+      )
+
+      for (const row of rows) available.add(row.media_id)
+    }
+
+    return Array.from(available)
   }
 
   /** Upsert against media_availability_uq (media_id, platform_id, country, offer_type). */

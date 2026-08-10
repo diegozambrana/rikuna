@@ -10,6 +10,7 @@ import {
   type LegacyColumnDef,
 } from "@tanstack/react-table/legacy"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import {
   Table,
   TableBody,
@@ -23,12 +24,15 @@ type DataTableProps<TData extends RowData> = {
   columns: LegacyColumnDef<TData>[]
   data: TData[]
   emptyMessage?: string
+  /** Optional row-click handler (e.g. navigating to a detail page) — rows render with a pointer cursor when set. */
+  onRowClick?: (row: TData) => void
 }
 
 export function DataTable<TData extends RowData>({
   columns,
   data,
   emptyMessage = "Sin datos.",
+  onRowClick,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -71,7 +75,11 @@ export function DataTable<TData extends RowData>({
         <TableBody>
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow
+                key={row.id}
+                onClick={onRowClick ? () => onRowClick(row.original) : undefined}
+                className={cn(onRowClick && "cursor-pointer")}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -24,6 +24,7 @@ Detailed implementation logs (date, files, acceptance criteria, decisions) live 
 - RIK-11: Added public list sharing — publishing a list now produces a real shareable link that opens the list, and the titles in it, for anyone without a Rikuna account.
 - RIK-12: Added the app shell — a header with an account menu (profile, theme toggle, sign out) and a collapsible sidebar for navigating between Panel, Recomendaciones, Mi biblioteca, Mis listas, Mis suscripciones, and Importar, with a mobile-friendly slide-out menu.
 - RIK-13: Added the Inicio (marketing home) page at `/` — hero, how-it-works, trust section, and a minimal footer for visitors without a session, who are now redirected to Panel automatically if they're already logged in.
+- RIK-14: Added Mi biblioteca — browse your entire personal watch history in a sortable, paginated table with tabs (Vistas / Quiero ver / Todas), filters for type, genre, year range, minimum rating and active-subscription availability, and a title search box, all reflected in the page's URL.
 
 ### Changed
 
