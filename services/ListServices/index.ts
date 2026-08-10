@@ -1,5 +1,6 @@
 import "server-only"
 import type { SupabaseClient } from "@supabase/supabase-js"
+import { generatePublicListCode } from "@/lib/lists/getPublicListUrl"
 import { slugify, withSlugRetry } from "@/lib/slug"
 import type { ListItem, UserList } from "@/types"
 
@@ -12,6 +13,7 @@ type UserListRow = {
   slug: string
   description: string | null
   is_public: boolean
+  public_code: string | null
 }
 
 function mapUserListRow(row: UserListRow): UserList {
@@ -24,6 +26,7 @@ function mapUserListRow(row: UserListRow): UserList {
     slug: row.slug,
     description: row.description,
     isPublic: row.is_public,
+    publicCode: row.public_code,
   }
 }
 
@@ -54,6 +57,18 @@ export type ListWithItems = { list: UserList; items: ListItemWithMedia[] }
 // mediaId already belongs to it.
 export type ListWithContainsFlag = Pick<UserList, "id" | "name" | "slug" | "isPublic"> & {
   containsMedia: boolean
+}
+
+// Read shape for /l/[codigo] — deliberately excludes slug (never the public
+// identifier, schema doc Section 11.6) and anything from user_subscriptions /
+// user_media_status / other lists of the same owner (PRD Section 11 privacy
+// rule).
+export type PublicListView = {
+  id: string
+  name: string
+  description: string | null
+  publicCode: string
+  items: ListItemMedia[]
 }
 
 const UNIQUE_VIOLATION = "23505"
@@ -241,13 +256,117 @@ export class ListServices {
     if (error) throw error
   }
 
-  async setListVisibility(listId: string, isPublic: boolean): Promise<void> {
-    const { error } = await this.client
+  /**
+   * Toggles visibility. `.select("*").single()` doubles as the ownership
+   * check: RLS's user_lists_update policy scopes the UPDATE to the caller's
+   * own rows, so a non-owner's attempt matches zero rows and .single() throws
+   * — no separate "if not owner" check needed.
+   *
+   * On the false -> true transition, a list with no public_code yet is
+   * assigned one, retrying up to 5 times on a Postgres unique-violation
+   * (23505) rather than assuming the random code can never collide. A list
+   * that already has a code (previously published, then made private) keeps
+   * it — public_code is stable for the list's lifetime once first assigned.
+   */
+  async setListVisibility(listId: string, isPublic: boolean): Promise<UserList> {
+    if (!isPublic) {
+      const { data, error } = await this.client
+        .from("user_lists")
+        .update({ is_public: false })
+        .eq("id", listId)
+        .select("*")
+        .single()
+
+      if (error) throw error
+      return mapUserListRow(data as UserListRow)
+    }
+
+    const { data: current, error: fetchError } = await this.client
       .from("user_lists")
-      .update({ is_public: isPublic })
+      .select("public_code")
       .eq("id", listId)
+      .single()
+
+    if (fetchError) throw fetchError
+
+    const existingCode = (current as { public_code: string | null }).public_code
+
+    if (existingCode) {
+      const { data, error } = await this.client
+        .from("user_lists")
+        .update({ is_public: true })
+        .eq("id", listId)
+        .select("*")
+        .single()
+
+      if (error) throw error
+      return mapUserListRow(data as UserListRow)
+    }
+
+    const maxAttempts = 5
+    let lastError: unknown
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const { data, error } = await this.client
+        .from("user_lists")
+        .update({ is_public: true, public_code: generatePublicListCode() })
+        .eq("id", listId)
+        .select("*")
+        .single()
+
+      if (!error) return mapUserListRow(data as UserListRow)
+      if (!isUniqueViolation(error)) throw error
+      lastError = error
+    }
+
+    throw lastError
+  }
+
+  /**
+   * Public read for /l/[codigo] — explicit column list, no wildcard, joined
+   * only to list_items -> media_items (never user_subscriptions or
+   * user_media_status). RLS on user_lists (is_public or owner) already
+   * reduces this to zero rows for a private list under the anon role, so a
+   * null return means either "no such code" or "not public" — the caller
+   * can't distinguish them, which is the point (no information leak).
+   */
+  async getPublicListByCode(code: string): Promise<PublicListView | null> {
+    const { data, error } = await this.client
+      .from("user_lists")
+      .select(
+        `id, name, description, public_code,
+        list_items(sort_order,
+          media_items(id, slug, title, year, poster_url, imdb_rating, is_stub))`
+      )
+      .eq("public_code", code)
+      .maybeSingle()
 
     if (error) throw error
+    if (!data) return null
+
+    const row = data as unknown as {
+      id: string
+      name: string
+      description: string | null
+      public_code: string
+      list_items: {
+        sort_order: number
+        media_items: Parameters<typeof mapListItemMediaRow>[0] | null
+      }[]
+    }
+
+    const items = (row.list_items ?? [])
+      .filter((item) => item.media_items !== null)
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .map((item) => mapListItemMediaRow(item.media_items!))
+
+    return {
+      id: row.id,
+      name: row.name,
+      description: row.description,
+      publicCode: row.public_code,
+      items,
+    }
   }
 
   /**

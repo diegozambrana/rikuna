@@ -5,4 +5,4 @@ export type ListFormActionState =
   | { status: "success"; list: UserList }
   | { status: "error"; message: string }
 
-export type ListMutationResult = { success: boolean; error?: string }
+export type ListMutationResult = { success: boolean; error?: string; publicCode?: string | null }

@@ -7,9 +7,14 @@ export default function PublicLayout({ children }: LayoutProps<"/">) {
         <Link href="/" className="font-heading text-lg font-medium">
           Rikuna
         </Link>
-        <Link href="/auth/login" className="text-xs text-muted-foreground hover:text-foreground">
-          Iniciar sesión
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/auth/login" className="text-xs text-muted-foreground hover:text-foreground">
+            Iniciar sesión
+          </Link>
+          <Link href="/auth/sign-up" className="text-xs text-muted-foreground hover:text-foreground">
+            Registrarse
+          </Link>
+        </div>
       </header>
       <main className="flex flex-1 flex-col">{children}</main>
     </div>

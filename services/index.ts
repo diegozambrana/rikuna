@@ -29,4 +29,5 @@ export type {
   ListItemWithMedia,
   ListWithItems,
   ListWithContainsFlag,
+  PublicListView,
 } from "./ListServices"

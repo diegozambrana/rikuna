@@ -1,13 +1,14 @@
-import type { UserList } from "@/types"
-
 /**
- * TODO(RIK-11): user_lists.slug is unique only per-user, not globally, so it
- * cannot back a public share link on its own — RIK-11 owns adding a separate
- * globally-unique short code and implementing this function's body. Until
- * then this always returns null, regardless of list.isPublic, and callers
- * (the "Copiar enlace" button) must treat null as "not available yet".
+ * 10-character URL-safe code for /l/[codigo]. Derived from crypto.randomUUID()
+ * (CSPRNG) rather than user_lists.slug, which is unique only per-user and
+ * explicitly unfit as a public identifier (schema doc Section 11.6).
+ * Collisions are handled by the caller retrying on the DB's unique-violation,
+ * not by checking uniqueness here.
  */
-export function getPublicListUrl(list: UserList): string | null {
-  void list
-  return null
+export function generatePublicListCode(): string {
+  return crypto.randomUUID().replace(/-/g, "").slice(0, 10)
+}
+
+export function getPublicListUrl(publicCode: string | null): string | null {
+  return publicCode ? `/l/${publicCode}` : null
 }

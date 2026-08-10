@@ -22,12 +22,12 @@ export async function setListVisibilityAction(
   const services = new ListServices(supabase)
 
   try {
-    await services.setListVisibility(listId, isPublic)
+    const list = await services.setListVisibility(listId, isPublic)
 
     revalidatePath("/mis-listas")
     revalidatePath(`/mis-listas/${listSlug}`)
 
-    return { success: true }
+    return { success: true, publicCode: list.publicCode }
   } catch (error) {
     return {
       success: false,

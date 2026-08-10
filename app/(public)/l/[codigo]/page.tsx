@@ -1,14 +1,18 @@
-export default async function PublicListPage({
-  params,
-}: {
-  params: Promise<{ codigo: string }>
-}) {
+import { notFound } from "next/navigation"
+import { PublicListGrid } from "@/features/lists/public/PublicListGrid"
+import { createClient } from "@/lib/supabase/server"
+import { ListServices } from "@/services"
+
+// No generateStaticParams: privacy state and list contents can change at any
+// time, so this must always read live, per-request data.
+export default async function PublicListPage({ params }: PageProps<"/l/[codigo]">) {
   const { codigo } = await params
 
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-2 p-6 text-center">
-      <h1 className="font-heading text-xl font-medium">Lista pública — próximamente</h1>
-      <p className="text-sm text-muted-foreground">Código: {codigo}</p>
-    </div>
-  )
+  const supabase = await createClient()
+  const services = new ListServices(supabase)
+  const list = await services.getPublicListByCode(codigo)
+
+  if (!list) notFound()
+
+  return <PublicListGrid list={list} />
 }
