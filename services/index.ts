@@ -9,10 +9,17 @@ export type {
   UpsertAvailabilityInput,
   ExpireStaleInput,
   AvailabilityWithPlatform,
+  ActiveSubscriptionPair,
 } from "./MediaAvailabilityServices"
 
 export { MediaServices } from "./MediaServices"
-export type { UpsertOrCreateStubInput, TitleWithDetails, CastMember, MediaSearchResult } from "./MediaServices"
+export type {
+  UpsertOrCreateStubInput,
+  TitleWithDetails,
+  CastMember,
+  MediaSearchResult,
+  MediaManyFilters,
+} from "./MediaServices"
 
 export { SubscriptionServices } from "./SubscriptionServices"
 export type { ActiveSubscriptionWithPlatform } from "./SubscriptionServices"

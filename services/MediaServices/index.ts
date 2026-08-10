@@ -2,6 +2,37 @@ import type { SupabaseClient } from "@supabase/supabase-js"
 import { slugify, withSlugRetry } from "@/lib/slug"
 import type { Genre, MediaItem, MediaType, Person } from "@/types"
 
+// Same chunking/pagination constants as RecommendationServices — mirrored
+// locally since those helpers are private to that class (RIK-14 constraint:
+// reimplement the logic, don't reach into its internals).
+const PAGE_SIZE = 1000
+const ID_CHUNK_SIZE = 200
+
+async function paginate<T>(
+  build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>
+): Promise<T[]> {
+  const all: T[] = []
+  let from = 0
+
+  while (true) {
+    const { data, error } = await build(from, from + PAGE_SIZE - 1)
+    if (error) throw error
+    all.push(...(data ?? []))
+    if (!data || data.length < PAGE_SIZE) break
+    from += PAGE_SIZE
+  }
+
+  return all
+}
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size))
+  }
+  return chunks
+}
+
 export type UpsertOrCreateStubInput = {
   imdbId: string
   title: string
@@ -100,6 +131,15 @@ export type MediaSearchResult = {
   isStub: boolean
 }
 
+export type MediaManyFilters = {
+  type?: MediaType
+  genreSlug?: string
+  yearMin?: number
+  yearMax?: number
+  ratingMin?: number
+  query?: string
+}
+
 export class MediaServices {
   constructor(private readonly client: SupabaseClient) {}
 
@@ -141,6 +181,73 @@ export class MediaServices {
       imdbRating: row.imdb_rating,
       isStub: row.is_stub,
     }))
+  }
+
+  /**
+   * Biblioteca read (RIK-14): media_items rows restricted to `mediaIds`
+   * (the caller's user_media_status media_id list), narrowed by the
+   * type/genre/year/rating/title filters. Chunks mediaIds at
+   * ID_CHUNK_SIZE like RecommendationServices' getMediaItems/getAvailableMediaIds
+   * so a multi-thousand-title library doesn't blow up the .in() URL. Distinct
+   * from searchByTitle, whose signature/behavior RIK-10's add-to-list control
+   * still depends on unchanged.
+   */
+  async getManyWithFilters(mediaIds: string[], filters: MediaManyFilters = {}): Promise<MediaItem[]> {
+    if (mediaIds.length === 0) return []
+
+    const narrowedIds = await this.applyGenreFilter(mediaIds, filters.genreSlug)
+    if (narrowedIds.length === 0) return []
+
+    const items: MediaItem[] = []
+
+    for (const idChunk of chunk(narrowedIds, ID_CHUNK_SIZE)) {
+      let query = this.client.from("media_items").select("*").in("id", idChunk)
+
+      if (filters.type) query = query.eq("type", filters.type)
+      if (filters.yearMin !== undefined) query = query.gte("year", filters.yearMin)
+      if (filters.yearMax !== undefined) query = query.lte("year", filters.yearMax)
+      if (filters.ratingMin !== undefined) query = query.gte("imdb_rating", filters.ratingMin)
+      if (filters.query) query = query.ilike("title", `%${filters.query}%`)
+
+      const rows = await paginate<MediaItemRow>((from, to) => query.range(from, to))
+      items.push(...rows.map(mapMediaItemRow))
+    }
+
+    return items
+  }
+
+  /**
+   * No-op when genreSlug is unset; an unknown slug resolves to zero matches.
+   * Same shape as RecommendationServices.applyGenreFilter (resolve slug ->
+   * genre id, then intersect via chunked media_genres lookups).
+   */
+  private async applyGenreFilter(mediaIds: string[], genreSlug?: string): Promise<string[]> {
+    if (!genreSlug) return mediaIds
+    if (mediaIds.length === 0) return mediaIds
+
+    const { data: genre, error: genreError } = await this.client
+      .from("genres")
+      .select("id")
+      .eq("slug", genreSlug)
+      .maybeSingle()
+
+    if (genreError) throw genreError
+    if (!genre) return []
+
+    const genreMediaIds = new Set<string>()
+    for (const idChunk of chunk(mediaIds, ID_CHUNK_SIZE)) {
+      const rows = await paginate<{ media_id: string }>((from, to) =>
+        this.client
+          .from("media_genres")
+          .select("media_id")
+          .eq("genre_id", (genre as { id: string }).id)
+          .in("media_id", idChunk)
+          .range(from, to)
+      )
+      for (const row of rows) genreMediaIds.add(row.media_id)
+    }
+
+    return mediaIds.filter((id) => genreMediaIds.has(id))
   }
 
   /**

@@ -2,6 +2,28 @@ import "server-only"
 import type { SupabaseClient } from "@supabase/supabase-js"
 import type { UserMediaStatus, UserMediaStatusSource } from "@/types"
 
+// Same "several thousand rows" scale problem RecommendationServices documents
+// for a single user's history — mirrored here rather than imported since
+// RecommendationServices doesn't export these helpers.
+const PAGE_SIZE = 1000
+
+async function paginate<T>(
+  build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>
+): Promise<T[]> {
+  const all: T[] = []
+  let from = 0
+
+  while (true) {
+    const { data, error } = await build(from, from + PAGE_SIZE - 1)
+    if (error) throw error
+    all.push(...(data ?? []))
+    if (!data || data.length < PAGE_SIZE) break
+    from += PAGE_SIZE
+  }
+
+  return all
+}
+
 type UserMediaStatusRow = {
   id: string
   created_at: string
@@ -144,5 +166,35 @@ export class MediaStatusServices {
     )
 
     if (error) throw error
+  }
+
+  /**
+   * Biblioteca read (RIK-14): every user_media_status row for the caller,
+   * optionally narrowed to watched and/or want_to_watch. Omitting both keys
+   * of `filter` (the "Todas" tab) returns the user's entire history,
+   * dismissed-only rows included — this screen is a read of the full
+   * personal record, not a recommendations-style exclusion filter. Uses the
+   * same paginated-range pattern as RecommendationServices so a multi
+   * thousand-row IMDb import isn't silently truncated by PostgREST's
+   * unpaginated-select cap.
+   */
+  async listForUser(
+    userId: string,
+    filter?: { watched?: boolean; wantToWatch?: boolean }
+  ): Promise<UserMediaStatus[]> {
+    const rows = await paginate<UserMediaStatusRow>((from, to) => {
+      let query = this.client.from("user_media_status").select("*").eq("user_id", userId)
+
+      if (filter?.watched !== undefined) {
+        query = query.eq("watched", filter.watched)
+      }
+      if (filter?.wantToWatch !== undefined) {
+        query = query.eq("want_to_watch", filter.wantToWatch)
+      }
+
+      return query.range(from, to)
+    })
+
+    return rows.map(mapRow)
   }
 }
