@@ -4,9 +4,10 @@ import type { Genre, MediaItem, MediaType, Person } from "@/types"
 
 // Same chunking/pagination constants as RecommendationServices — mirrored
 // locally since those helpers are private to that class (RIK-14 constraint:
-// reimplement the logic, don't reach into its internals).
+// reimplement the logic, don't reach into its internals). See that file for
+// why ID_CHUNK_SIZE is 100 and not 200 (Kong's 8 KB request-line limit).
 const PAGE_SIZE = 1000
-const ID_CHUNK_SIZE = 200
+const ID_CHUNK_SIZE = 100
 
 async function paginate<T>(
   build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>

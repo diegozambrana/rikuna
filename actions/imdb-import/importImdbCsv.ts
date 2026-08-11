@@ -46,6 +46,12 @@ export async function importImdbCsv(
     revalidatePath("/panel")
     revalidatePath("/biblioteca")
     revalidatePath("/recomendaciones")
+    // Without this the batch history on this very page keeps showing the
+    // pre-upload list until the next full navigation.
+    revalidatePath("/importar")
+    // New stubs land in tmdb_sync_status='pending', so the sync page's backlog
+    // counter is stale the moment an import finishes.
+    revalidatePath("/sincronizar")
 
     return { status: "success", summary }
   } catch {

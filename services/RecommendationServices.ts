@@ -26,8 +26,14 @@ export type RecommendationQueryParams = {
 // PostgREST caps unpaginated selects at `max_rows` (1000 locally) and GET
 // URLs blow up past a few hundred UUIDs in an `.in()` filter — both matter
 // at the "several thousand rows" volume this ticket's AC-5 verifies against.
+//
+// ID_CHUNK_SIZE was 200, which measured ~7.8 KB of request line once the
+// UUIDs are percent-encoded — under Kong's 8 KB limit on its own, but a 414
+// "URI too long" the moment an availability `.or(...)` pair filter rides
+// along. 100 keeps the worst case near 4 KB. Kept in sync with the mirrored
+// copies in MediaServices and MediaAvailabilityServices.
 const PAGE_SIZE = 1000
-const ID_CHUNK_SIZE = 200
+const ID_CHUNK_SIZE = 100
 
 async function paginate<T>(
   build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>

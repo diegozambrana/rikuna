@@ -4,8 +4,8 @@
     "hash": "239f3ebf717465dc636818a1a619398d"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/next-env.d.ts": {
-    "mtime": 1786366733.30037,
-    "hash": "8195d2c60ce847a459ae9d308d6a5724"
+    "mtime": 1786417932.6192358,
+    "hash": "aa94238a90e7d04b7a47ecc3145ba6a0"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/proxy.ts": {
     "mtime": 1786302920.44324,
@@ -31,6 +31,26 @@
     "mtime": 1786304831.11472,
     "hash": "dd78252ffa97d19191fbd6cbb5eedc9c"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/tmdb-sync/mapDetails.ts": {
+    "mtime": 1786416874.5780737,
+    "hash": "1f9913c7c8087d440151f65bfe027e7b"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/tmdb-sync/types.ts": {
+    "mtime": 1786416808.2753062,
+    "hash": "658491e0d43062ab9ad3f6728fd757f7"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/tmdb-sync/client.ts": {
+    "mtime": 1786416829.2140257,
+    "hash": "b5282ef10d01332204b22977eac726f5"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/tmdb-sync/syncMediaItem.ts": {
+    "mtime": 1786416934.42093,
+    "hash": "c13adc118a09aa92e45693daf3e543a3"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/tmdb-sync/index.ts": {
+    "mtime": 1786417330.434461,
+    "hash": "dd9653cea76b76a78b02fba1e1068136"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/catalog/parseCatalogFile.ts": {
     "mtime": 1786329267.008982,
     "hash": "5f76e5b3eab79c29303401d78560e218"
@@ -44,7 +64,7 @@
     "hash": "6b69cffb95c865750d589a90743b917b"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ingestion/catalog/run.ts": {
-    "mtime": 1786329267.009628,
+    "mtime": 1786329268.009627,
     "hash": "e40a06b1bbc00b37f4189415683285c6"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/types/index.ts": {
@@ -74,6 +94,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/importar/[batchId]/page.tsx": {
     "mtime": 1786329266.9928515,
     "hash": "91e64e3dfb462597419c7c6cd6a0d79e"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/sincronizar/page.tsx": {
+    "mtime": 1786417068.3676896,
+    "hash": "e57693bdcb5de7a593ade98d57c46e82"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/app/(app)/biblioteca/page.tsx": {
     "mtime": 1786368233.4095328,
@@ -152,8 +176,8 @@
     "hash": "f882aa11250d06ce53f500c50745c52f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/navigation.ts": {
-    "mtime": 1786365326.0540771,
-    "hash": "44189268ff04dab49819673a5107c89d"
+    "mtime": 1786417080.5129635,
+    "hash": "278a229183bdba4165106632e135bff5"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/recommendationThresholds.ts": {
     "mtime": 1786329267.0006423,
@@ -164,8 +188,8 @@
     "hash": "918b8266d8d237ab7072a6485a6fe6d9"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/platforms.ts": {
-    "mtime": 1786329267.0003736,
-    "hash": "b300c6a89c950c0d542452042c4fb066"
+    "mtime": 1786414292.9068573,
+    "hash": "00f7f4d59ad318221a3b6e74f2a7dfdd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/constants/countries.ts": {
     "mtime": 1786329267.0001059,
@@ -231,13 +255,29 @@
     "mtime": 1786329267.0070322,
     "hash": "5bf80c50bed5e497903d36f7ca7054cb"
   },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/tmdb-sync/useTmdbSyncRunner.ts": {
+    "mtime": 1786417027.8140726,
+    "hash": "56aa6d1152cb4bbb778274a546213ac9"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/tmdb-sync/TmdbSyncProgress.tsx": {
+    "mtime": 1786417033.2401018,
+    "hash": "d9fc75df3d2930fc3a39619929aa5338"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/tmdb-sync/TmdbSyncSummary.tsx": {
+    "mtime": 1786417042.8559768,
+    "hash": "7ddc01182468aeaae885b9bd3508ca6f"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/features/tmdb-sync/TmdbSyncScreen.tsx": {
+    "mtime": 1786417381.7651503,
+    "hash": "0a2747f87fe534c569425b8e88a726c2"
+  },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryTabs.tsx": {
     "mtime": 1786368538.461828,
     "hash": "cfa3c5ee1cf29b68ab6fe844636ea11f"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryTable.tsx": {
-    "mtime": 1786368317.0009103,
-    "hash": "f68f2036a84fa0dfb0437bf00a169611"
+    "mtime": 1786418319.4415166,
+    "hash": "2d78b8e684a74ec4c0c49239600178ac"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/library/LibraryScreen.tsx": {
     "mtime": 1786368551.9238431,
@@ -308,8 +348,8 @@
     "hash": "8b4d70ebe2768df713bb94e161d73c52"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/UploadForm.tsx": {
-    "mtime": 1786304831.1144195,
-    "hash": "1a868c0e94fc1f6008d40514de31d32e"
+    "mtime": 1786417102.9125674,
+    "hash": "9efe0ac16eed5626a251458b1bff8aeb"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/components/BatchDetailTable.tsx": {
     "mtime": 1786329267.0008821,
@@ -322,6 +362,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/features/import/components/ImportResultBadge.tsx": {
     "mtime": 1786329267.001409,
     "hash": "f5cf4256ec17fd06db8139e8ceb4442f"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/supabase/migrations/20260810120000_seed_platforms.sql": {
+    "mtime": 1786414301.117286,
+    "hash": "b0b86efa6cf60ae6e52ae4d28542f6dd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/supabase/migrations/20260809170000_user_lists_public_code.sql": {
     "mtime": 1786329267.0219738,
@@ -338,6 +382,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/supabase/migrations/20260809134405_enable_rls_policies.sql": {
     "mtime": 1786299699.0183184,
     "hash": "ed23b7c96321cd85e2c83e0e39555b29"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/supabase/migrations/20260810180000_media_items_tmdb_sync.sql": {
+    "mtime": 1786416788.7762952,
+    "hash": "7dd1eb9b448fdab540a83cfed5bec8dd"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/ui/aspect-ratio.tsx": {
     "mtime": 1786329266.9984322,
@@ -464,8 +512,8 @@
     "hash": "6b9962e8ce54c6afe34d69712af177cf"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/Table/DataTable.tsx": {
-    "mtime": 1786368307.2293842,
-    "hash": "35afb685b7b7075e696c64113aa10a81"
+    "mtime": 1786414259.6154726,
+    "hash": "c43a4c1b1cd5d01f0036ec7fd89ec9b7"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/components/MediaCard/index.tsx": {
     "mtime": 1786329266.9978285,
@@ -476,8 +524,8 @@
     "hash": "8514151247cd62555e414af108807ca0"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/imdb-import/importImdbCsv.ts": {
-    "mtime": 1786304831.1128914,
-    "hash": "f57a6f6095fa8aaf7503051a211c01fe"
+    "mtime": 1786417112.2653356,
+    "hash": "f70654e070db0f28f154c7f9e2da65e2"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/imdb-import/types.ts": {
     "mtime": 1786304831.1133235,
@@ -562,6 +610,26 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/auth/signUp.ts": {
     "mtime": 1786302920.4356303,
     "hash": "d1a88ad13b068255b143a49c53f2ed06"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/tmdb-sync/retryFailedTmdbSyncAction.ts": {
+    "mtime": 1786417336.9744241,
+    "hash": "2b253cc6a6fe46630e44563839eae776"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/tmdb-sync/syncTmdbBatchAction.ts": {
+    "mtime": 1786417006.8409986,
+    "hash": "19d383edfc6c096cfab755fa916491fb"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/tmdb-sync/getTmdbSyncStatusAction.ts": {
+    "mtime": 1786416988.2539973,
+    "hash": "8e8bb1947c28367215110c670f0267f7"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/tmdb-sync/types.ts": {
+    "mtime": 1786417352.6426523,
+    "hash": "f8432c552ac1b7edb3a8af186b07e582"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/tmdb-sync/index.ts": {
+    "mtime": 1786417357.098402,
+    "hash": "9800457a219b6e2b01abf82348880483"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/actions/recommendations/getGenres.ts": {
     "mtime": 1786329266.9873185,
@@ -672,24 +740,24 @@
     "hash": "d8647a758847f0af2f42aadbc269b833"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/supabase/proxy.ts": {
-    "mtime": 1786366595.5012205,
-    "hash": "a7cae6a2d0c497b9790c083c5821562a"
+    "mtime": 1786417084.3445296,
+    "hash": "045910ee28742089852e6f9cea2118de"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/lib/supabase/server.ts": {
     "mtime": 1786302920.4412694,
     "hash": "f36ba84ef0e24bfb5977f70deaccddd3"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/RecommendationServices.ts": {
-    "mtime": 1786329267.015114,
-    "hash": "31b14695c9185bc74f16fb7d272cf0d7"
+    "mtime": 1786415070.6750863,
+    "hash": "7b265876f48a1a566ca0e994788407ec"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/ImdbImportServices.ts": {
     "mtime": 1786329267.0133913,
     "hash": "40d476f21601766d284e75104c31c030"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/index.ts": {
-    "mtime": 1786368090.350987,
-    "hash": "9b179a45880d4c2c5057056fda5cf2cd"
+    "mtime": 1786416918.8467023,
+    "hash": "e05c4b07d27d9f86dd6a68fee23ca641"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/CatalogSnapshotServices/index.ts": {
     "mtime": 1786329267.012782,
@@ -698,6 +766,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/SubscriptionServices/index.ts": {
     "mtime": 1786329267.0156524,
     "hash": "bfebcc34b66ca64bd62eea0296350c6d"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/services/TmdbSyncServices/index.ts": {
+    "mtime": 1786417324.6161814,
+    "hash": "6cce7c6226e5b1eb5b8278ed9dd92bde"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/MediaStatusServices/index.ts": {
     "mtime": 1786368038.9613059,
@@ -708,20 +780,20 @@
     "hash": "1d39720a6a78311ab4024d4b51160a18"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/MediaServices/index.ts": {
-    "mtime": 1786368062.5138497,
-    "hash": "95983c4d51d13701fc9b0b76834e08d9"
+    "mtime": 1786415076.9125335,
+    "hash": "84e7ba3ce5b6f597cbb1aca412960630"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/services/MediaAvailabilityServices/index.ts": {
-    "mtime": 1786368086.2718155,
-    "hash": "2fb925ecba92dfdbe1c2e89854fda847"
+    "mtime": 1786415086.3098898,
+    "hash": "16edc6cee2c9fec513fbacc616c8fba9"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/ARCHITECTURE.md": {
-    "mtime": 1786330354.236194,
-    "hash": "d8c187a98c0d0a033dc636151509e180"
+    "mtime": 1786417256.1326663,
+    "hash": "ef8ef0c722afd55fb62291834f8d8761"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/CHANGELOG.md": {
-    "mtime": 1786369390.2341294,
-    "hash": "60bd687d1115c3fc8a34bafda894a028"
+    "mtime": 1786371412.8364708,
+    "hash": "44eea37207dec513865bf5fdfcc6e311"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/README.md": {
     "mtime": 1786289509.728117,
@@ -886,6 +958,10 @@
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091839_RIK-7_monthly_watch_panel.md": {
     "mtime": 1786329267.0190706,
     "hash": "8845aa5091ca4292a2133d58033957ef"
+  },
+  "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608101016_RIK-15_perfil_cuenta.md": {
+    "mtime": 1786371447.7894313,
+    "hash": "3000c309b6f237d22028555ca4fe2450"
   },
   "/Users/diegoarmandozambranaarze/Projects/rikuna/specs/logs/202608091350_RIK-1_database_schema_rls.md": {
     "mtime": 1786299699.0170717,

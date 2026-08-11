@@ -4,8 +4,14 @@ import type { MediaAvailabilityOfferType, Platform } from "@/types"
 // Same chunking/pagination constants as RecommendationServices — mirrored
 // locally since those helpers are private to that class (RIK-14 constraint:
 // reimplement the logic, don't reach into its internals).
+//
+// ID_CHUNK_SIZE is 100, not 200: getAvailableMediaIds appends an `.or(...)`
+// clause per active subscription on top of the `.in("media_id", ...)` list,
+// and at 200 UUIDs the percent-encoded request line crossed Kong's 8 KB
+// limit — Kong answered 414 "URI too long" and supabase-js surfaced it as a
+// bare {message} object. See RecommendationServices for the full note.
 const PAGE_SIZE = 1000
-const ID_CHUNK_SIZE = 200
+const ID_CHUNK_SIZE = 100
 
 async function paginate<T>(
   build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>

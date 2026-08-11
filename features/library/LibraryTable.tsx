@@ -1,11 +1,18 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { Film } from "lucide-react"
 import type { LegacyColumnDef } from "@tanstack/react-table/legacy"
 import type { LibraryRow } from "@/actions/media"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Badge } from "@/components/ui/badge"
 import { DataTable } from "@/components/Table/DataTable"
 import type { MediaType } from "@/types"
+
+// RIK-14 follow-up: the biblioteca is the one table where a user can rack up
+// hundreds of rows, so it exposes the page-size control the shared DataTable
+// keeps opt-in.
+const PAGE_SIZE_OPTIONS = [10, 25, 50, 100]
 
 const TYPE_LABELS: Record<MediaType, string> = {
   movie: "Película",
@@ -17,7 +24,24 @@ const columns: LegacyColumnDef<LibraryRow>[] = [
     id: "title",
     accessorFn: (row) => row.media.title,
     header: "Título",
-    cell: ({ row }) => <span className="font-medium">{row.original.media.title}</span>,
+    cell: ({ row }) => {
+      const { title, posterUrl, isStub } = row.original.media
+      return (
+        <div className="flex items-center gap-3">
+          <AspectRatio ratio={2 / 3} className="w-8 shrink-0 bg-muted">
+            {!isStub && posterUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element -- external, unoptimized poster URLs from the catalog process
+              <img src={posterUrl} alt={title} className="size-full object-cover" loading="lazy" />
+            ) : (
+              <div className="flex size-full items-center justify-center text-muted-foreground">
+                <Film className="size-3.5" />
+              </div>
+            )}
+          </AspectRatio>
+          <span className="font-medium">{title}</span>
+        </div>
+      )
+    },
   },
   {
     id: "year",
@@ -77,6 +101,7 @@ export function LibraryTable({ rows }: { rows: LibraryRow[] }) {
       data={rows}
       emptyMessage="No hay títulos que coincidan con los filtros seleccionados."
       onRowClick={(row) => router.push(`/titulo/${row.media.slug}`)}
+      pageSizeOptions={PAGE_SIZE_OPTIONS}
     />
   )
 }
