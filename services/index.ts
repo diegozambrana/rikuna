@@ -10,7 +10,16 @@ export type {
   ExpireStaleInput,
   AvailabilityWithPlatform,
   ActiveSubscriptionPair,
+  TmdbAvailabilityRow,
+  ReconcileAvailabilityResult,
 } from "./MediaAvailabilityServices"
+
+export { AvailabilitySyncServices } from "./AvailabilitySyncServices"
+export type {
+  AvailabilitySyncStatus,
+  AvailabilitySyncCounts,
+  PendingAvailabilityItem,
+} from "./AvailabilitySyncServices"
 
 export { MediaServices } from "./MediaServices"
 export type {
@@ -19,6 +28,8 @@ export type {
   CastMember,
   MediaSearchResult,
   MediaManyFilters,
+  CatalogFilters,
+  CatalogPage,
 } from "./MediaServices"
 
 export { SubscriptionServices } from "./SubscriptionServices"

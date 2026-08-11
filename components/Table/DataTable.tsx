@@ -14,15 +14,7 @@ import {
   useLegacyTable,
   type LegacyColumnDef,
 } from "@tanstack/react-table/legacy"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { PaginationBar } from "@/components/Pagination"
 import { cn } from "@/lib/utils"
 import {
   Table,
@@ -123,60 +115,16 @@ export function DataTable<TData extends RowData>({
         </TableBody>
       </Table>
 
-      {(pageSizeOptions || table.getPageCount() > 1) && (
-        <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
-          {pageSizeOptions && (
-            <div className="mr-auto flex items-center gap-2">
-              <Label htmlFor="page-size" className="text-xs text-muted-foreground">
-                Filas por página
-              </Label>
-              <Select
-                value={String(pagination.pageSize)}
-                onValueChange={(value) => table.setPageSize(Number(value))}
-              >
-                <SelectTrigger
-                  id="page-size"
-                  className="w-20"
-                  aria-label="Cantidad de elementos por página"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {pageSizeOptions.map((option) => (
-                    <SelectItem key={option} value={String(option)}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-
-          {table.getPageCount() > 1 && (
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                Anterior
-              </Button>
-              <span className="text-xs text-muted-foreground">
-                Página {pagination.pageIndex + 1} de {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                Siguiente
-              </Button>
-            </div>
-          )}
-        </div>
-      )}
+      <PaginationBar
+        pageIndex={pagination.pageIndex}
+        pageCount={table.getPageCount()}
+        pageSize={pagination.pageSize}
+        pageSizeOptions={pageSizeOptions}
+        sizeLabel="Filas por página"
+        sizeInputId="page-size"
+        onPageChange={(index) => table.setPageIndex(index)}
+        onPageSizeChange={(size) => table.setPageSize(size)}
+      />
     </div>
   )
 }

@@ -54,6 +54,7 @@ export function PanelGrid({
           {picks.map((pick) => (
             <MediaCard
               key={pick.id}
+              href={`/titulo/${pick.slug}`}
               title={pick.title}
               year={pick.year}
               posterUrl={pick.posterUrl}

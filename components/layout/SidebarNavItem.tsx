@@ -8,7 +8,9 @@ import type { NavItem } from "@/constants/navigation"
 
 export function SidebarNavItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
   const pathname = usePathname()
-  const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
+  const isActive = item.exact
+    ? pathname === item.href
+    : pathname === item.href || pathname.startsWith(`${item.href}/`)
   const Icon = item.icon
 
   const link = (

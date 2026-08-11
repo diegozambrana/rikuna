@@ -66,7 +66,12 @@ export class ImdbImportServices {
     }
 
     const type = mapImdbTitleType(csvRow.titleType)
-    const baseSlug = slugify(csvRow.title, csvRow.year ?? undefined)
+    // An id-only CSV gives us no title, but media_items.title and .slug are
+    // both NOT NULL. The IMDb id stands in for each until the TMDB sync
+    // replaces them — see syncMediaItem, which recognizes the placeholder by
+    // title === imdb_id and rewrites the slug along with the real title.
+    const title = csvRow.title || csvRow.imdbId
+    const baseSlug = slugify(title, csvRow.year ?? undefined)
 
     const createdRow = await withSlugRetry(baseSlug, async (slug) => {
       const { data, error } = await this.client
@@ -75,7 +80,7 @@ export class ImdbImportServices {
           imdb_id: csvRow.imdbId,
           type,
           title_type: csvRow.titleType || null,
-          title: csvRow.title,
+          title,
           slug,
           year: csvRow.year,
           runtime_minutes: csvRow.runtimeMinutes,
