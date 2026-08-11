@@ -125,12 +125,18 @@ Always read the latest files in `supabase/migrations/` and `schema-basedatos-rik
 
 ## Catalog Ingestion
 
-Rikuna has two ingestion paths, both server-only and both distinct from normal user-triggered Server Actions:
+Rikuna has three ingestion paths, all server-only and all distinct from normal user-triggered Server Actions:
 
 1. **Availability snapshots** (`ingestion/catalog/`) — consumes the periodic JSON produced by the external platform+country process. Creates a `catalog_snapshots` row, upserts `media_items` (by `imdb_id`) and `media_availability`, then expires anything not seen in that snapshot. Runs on a schedule, using the `admin.ts` service-role client (no end-user session involved).
 2. **IMDb CSV import** (`ingestion/imdb-import/`) — triggered by an authenticated user uploading their _Ratings_ or _Watchlist_ export from `/importar`. Runs under the user's own session (RLS applies normally; no service role needed here since the user is only ever writing their own rows). Creates stub `media_items` for unmatched titles instead of discarding them.
 
-Both write their run history (`catalog_snapshots`, `imdb_import_batches` / `imdb_import_rows`) so failures and partial matches are inspectable from the UI (`/importar/[batchId]`).
+3. **TMDB catalog sync** (`ingestion/tmdb-sync/`) — fills in what the other two paths leave NULL (`poster_url`, `description`, `tmdb_id`, `original_title`, `end_year`, `content_rating`, `imdb_url`, `enriched_at`), links real genres, writes the lead cast as `media_people` rows with `role='actor'`, and flips `is_stub` to `false`. Progress is tracked per row by `media_items.tmdb_sync_status` (`pending | synced | not_found | failed`). Triggered from `/sincronizar`, and chained automatically after a CSV import for that batch's new titles.
+
+   This is the one path reachable from an end-user flow that uses the `admin.ts` service-role client, and the exception is deliberate: `media_items` is global shared data with **no** RLS `UPDATE` policy for `authenticated`, and adding one would let any signed-in user rewrite the catalog from the browser. The Server Action (`actions/tmdb-sync/`) verifies the session with the caller's own RLS-scoped client and only then delegates into `ingestion/`, which owns the privileged client. Reads (the backlog counters) never use it.
+
+   The run is driven **one batch per request** from the client (`features/tmdb-sync/useTmdbSyncRunner`) rather than as a single long action — that's what keeps each request far from a function timeout and makes a real progress bar possible.
+
+The first two write their run history (`catalog_snapshots`, `imdb_import_batches` / `imdb_import_rows`) so failures and partial matches are inspectable from the UI (`/importar/[batchId]`); the sync's equivalent is the per-row `tmdb_sync_status`, which is also what stops a re-run from retrying titles TMDB genuinely doesn't have.
 
 ## Server Actions (`actions/`)
 
@@ -144,6 +150,7 @@ Organized by domain with barrel `index.ts` files:
 | `subscriptions`   | Activate/close `user_subscriptions`                                           |
 | `lists`           | CRUD for `user_lists` / `list_items`, visibility toggle, share link           |
 | `imdb-import`     | Accept upload, kick off `ingestion/imdb-import/`, expose batch status         |
+| `tmdb-sync`       | Backlog counters and one-batch-at-a-time catalog enrichment via TMDB          |
 | `recommendations` | "Qué ver este mes" and discovery queries (Sections 8.1–8.2 of the schema doc) |
 
 Typical responsibilities:
@@ -167,6 +174,7 @@ Each domain folder exports a service class that accepts a `SupabaseClient` in th
 - `ListServices` — includes the public-list read path (no `user_id` filter when `is_public`)
 - `ImdbImportServices` — row-level match/create logic against `media_items`
 - `CatalogSnapshotServices` — used only by `ingestion/catalog/`
+- `TmdbSyncServices` — backlog counters (any client) plus the enrichment writes and genre/cast linking (service-role client only)
 
 ## Features (`features/`)
 
@@ -180,7 +188,8 @@ Feature modules mirror product areas defined in `vistas-y-estilo-rikuna.md`:
 | `title`           | Detail view — shared between authenticated and public variants, with an `isPublicView` flag gating the personal-action buttons |
 | `lists`           | `list`, `detail`, `create`, visibility toggle, share-link component                                                            |
 | `subscriptions`   | Active subscription card, history table, activate form                                                                         |
-| `import`          | Upload dropzone, batch history, batch detail table                                                                             |
+| `import`          | Upload dropzone, batch history, batch detail table, chained TMDB pass for the new titles                                       |
+| `tmdb-sync`       | Backlog screen, the batch-loop runner hook, progress bar and run summary (shared with `import`)                                |
 | `profile`         | Account settings, theme toggle                                                                                                 |
 
 **Pattern (all features):** Server Components fetch via actions/services and pass **initial data** into client feature components. Client hooks combine **Zustand** (filters, UI flags) with **Server Actions** for mutations.

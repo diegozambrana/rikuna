@@ -1,16 +1,16 @@
 # Graph Report - rikuna  (2026-08-10)
 
 ## Corpus Check
-- 234 files · ~251,320 words
+- 253 files · ~258,922 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2025 nodes · 2841 edges · 248 communities (116 shown, 132 thin omitted)
-- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 90 edges (avg confidence: 0.85)
+- 2131 nodes · 3083 edges · 260 communities (128 shown, 132 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 91 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1e589384`
+- Built from commit: `ec86c4cc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -134,19 +134,20 @@
 - [[_COMMUNITY_AlertTitle|AlertTitle]]
 - [[_COMMUNITY_AlertDescription|AlertDescription]]
 - [[_COMMUNITY_AlertAction|AlertAction]]
+- [[_COMMUNITY_RadioGroup|RadioGroup]]
+- [[_COMMUNITY_Avatar|Avatar]]
+- [[_COMMUNITY_AvatarImage|AvatarImage]]
 - [[_COMMUNITY_AvatarFallback|AvatarFallback]]
 - [[_COMMUNITY_AvatarBadge|AvatarBadge]]
+- [[_COMMUNITY_AvatarGroup|AvatarGroup]]
 - [[_COMMUNITY_AvatarGroupCount|AvatarGroupCount]]
 - [[_COMMUNITY_DialogPortal|DialogPortal]]
 - [[_COMMUNITY_DialogClose|DialogClose]]
 - [[_COMMUNITY_DialogOverlay|DialogOverlay]]
 - [[_COMMUNITY_DialogHeader|DialogHeader]]
 - [[_COMMUNITY_DialogTitle|DialogTitle]]
-- [[_COMMUNITY_DialogDescription|DialogDescription]]
-- [[_COMMUNITY_badgeVariants|badgeVariants]]
-- [[_COMMUNITY_TableFooter|TableFooter]]
 - [[_COMMUNITY_TableCaption|TableCaption]]
-- [[_COMMUNITY_Select|Select]]
+- [[_COMMUNITY_buttonVariants|buttonVariants]]
 - [[_COMMUNITY_SelectGroup|SelectGroup]]
 - [[_COMMUNITY_SelectValue|SelectValue]]
 - [[_COMMUNITY_SelectTrigger|SelectTrigger]]
@@ -157,7 +158,6 @@
 - [[_COMMUNITY_SelectScrollDownButton|SelectScrollDownButton]]
 - [[_COMMUNITY_Input|Input]]
 - [[_COMMUNITY_Skeleton|Skeleton]]
-- [[_COMMUNITY_UserProvider|UserProvider]]
 - [[_COMMUNITY_AvailabilityBadgePlatform|AvailabilityBadgePlatform]]
 - [[_COMMUNITY_MediaCardProps|MediaCardProps]]
 - [[_COMMUNITY_ImdbImportActionState|ImdbImportActionState]]
@@ -258,16 +258,28 @@
 - [[_COMMUNITY_Community 245|Community 245]]
 - [[_COMMUNITY_Community 246|Community 246]]
 - [[_COMMUNITY_Community 247|Community 247]]
+- [[_COMMUNITY_Community 248|Community 248]]
+- [[_COMMUNITY_Community 249|Community 249]]
+- [[_COMMUNITY_Community 250|Community 250]]
+- [[_COMMUNITY_Community 251|Community 251]]
+- [[_COMMUNITY_Community 252|Community 252]]
+- [[_COMMUNITY_Community 253|Community 253]]
+- [[_COMMUNITY_Community 254|Community 254]]
+- [[_COMMUNITY_Community 255|Community 255]]
+- [[_COMMUNITY_Community 256|Community 256]]
+- [[_COMMUNITY_Community 257|Community 257]]
+- [[_COMMUNITY_Community 258|Community 258]]
+- [[_COMMUNITY_Community 259|Community 259]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 121 edges
-2. `createClient()` - 39 edges
-3. `Button()` - 29 edges
-4. `Card()` - 17 edges
-5. `RIK-11: Public List Sharing and Public Title Page` - 17 edges
-6. `CardContent()` - 16 edges
-7. `CardHeader()` - 15 edges
-8. `CardTitle()` - 15 edges
+2. `createClient()` - 42 edges
+3. `Button()` - 30 edges
+4. `Card()` - 18 edges
+5. `CardContent()` - 17 edges
+6. `RIK-11: Public List Sharing and Public Title Page` - 17 edges
+7. `CardHeader()` - 16 edges
+8. `CardTitle()` - 16 edges
 9. `Rikuna — Documento de Especificación de Producto` - 15 edges
 10. `RIK-9 — Title Detail Page` - 15 edges
 
@@ -276,12 +288,12 @@
   CHANGELOG.md → services/ImdbImportServices.ts
 - `RIK-6: Mis suscripciones screen` --conceptually_related_to--> `SubscriptionServices`  [INFERRED]
   CHANGELOG.md → services/SubscriptionServices/index.ts
+- `RIK-7: Panel Qué ver este mes` --conceptually_related_to--> `MediaStatusServices.markWatched`  [INFERRED]
+  CHANGELOG.md → services/MediaStatusServices/index.ts
 - `RIK-8: Recomendaciones screen` --conceptually_related_to--> `MediaStatusServices.addToWatchlist`  [INFERRED]
   CHANGELOG.md → services/MediaStatusServices/index.ts
 - `Supabase Integration (separate server/browser/admin clients)` --references--> `createClient`  [EXTRACTED]
   ARCHITECTURE.md → lib/supabase/server.ts
-- `getRecommendations` --cites--> `RIKUNA PRD — documento de especificación`  [EXTRACTED]
-  actions/recommendations/getRecommendations.ts → specs/RIKUNA-PRD-documento-especificacion-rikuna.md
 
 ## Hyperedges (group relationships)
 - **IMDb CSV Ingestion Pipeline** — index_runimdbimport, parsecsv_parseimdbcsv, processrow_processimdbcsvrow, imdbimportservices_imdbimportservices [INFERRED 0.85]
@@ -312,83 +324,83 @@
 - **Shared canonical actions/media-status write path built by RIK-7, extended by RIK-8 and RIK-9** — monthly_watch_panel_ticket, discovery_recommendations_ticket, title_detail_page_ticket, actions_media_status_barrel [EXTRACTED 1.00]
 - **Recurring convention: extend pre-existing service/action files instead of duplicating them** — import_batch_detail_ticket, discovery_recommendations_ticket, title_detail_page_ticket, public_list_sharing_ticket [INFERRED 0.85]
 
-## Communities (248 total, 132 thin omitted)
+## Communities (260 total, 132 thin omitted)
 
 ### Community 0 - "Auth Screens & Root Barrels"
-Cohesion: 0.05
-Nodes (29): parseCatalogFile(), VALID_ITEM_TYPES, VALID_OFFER_TYPES, validateCatalogFile(), ResolvedPlatform, resolvePlatform(), filePath, ingestCatalogFile() (+21 more)
+Cohesion: 0.08
+Nodes (6): AuthActionState, PublicListGrid(), Recommendations, SyncSection(), createClient(), getTmdbSyncStatusAction()
 
 ### Community 1 - "Availability & Route Barrels"
 Cohesion: 0.08
 Nodes (46): actions/media-status canonical write path, RIK-6: Mis suscripciones (Active Subscription), RIK-2 (ES): Autenticación y estructura de rutas, RIK-2: Authentication and Route Guards, RIK-3: Catalog Ingestion, public.handle_updated_at() trigger function, imdb_import_batches table, imdb_import_rows table (+38 more)
 
 ### Community 2 - "Auth, Import & Subscription Specs+Schema"
-Cohesion: 0.07
-Nodes (6): AuthActionState, ListGrid(), searchTitles(), PublicListGrid(), Recommendations, createClient()
-
-### Community 3 - "Catalog File Parsing & Validation"
 Cohesion: 0.05
 Nodes (33): 10. Mapa de relaciones, 11. Pendientes que afectan al esquema, 1. Resumen de cambios respecto a la v1, 2.1 `media_items`, 2.2 Géneros y personas, 2.3 Series: temporadas y episodios, 2. Catálogo, 3.1 `platforms` (+25 more)
 
-### Community 4 - "User Lists Specs & Public Sharing"
+### Community 3 - "Catalog File Parsing & Validation"
 Cohesion: 0.11
 Nodes (43): RIK-10 — User Lists Management, RIK-10 — Mis listas (ES), getPublicListUrl stub helper, RIK-11 — Lista pública (ES), public_code global sharing mechanism, RIK-1 — Esquema de base de datos y RLS (ES), RIK-2 — Auth and Route Guards, proxy.ts Next.js 16 root guard convention (+35 more)
 
+### Community 4 - "User Lists Specs & Public Sharing"
+Cohesion: 0.19
+Nodes (16): dateFormatter, SOURCE_TYPE_LABEL, ListGrid(), TitleSearchAndAdd(), Step, STEPS, searchTitles(), dateFormatter (+8 more)
+
 ### Community 5 - "Catalog Ingestion & Subscription Activation"
-Cohesion: 0.08
-Nodes (20): BibliotecaPage(), BibliotecaSearchParams, parseRating(), parseTab(), parseType(), parseYear(), VALID_TABS, LibraryScreen() (+12 more)
-
-### Community 6 - "Import Batch Detail Table"
-Cohesion: 0.08
-Nodes (25): LibrarySection(), getLibrary(), GetLibraryParams, LibraryResult, LibraryRow, LibraryTab, statusFilterForTab(), TitleDetailDTO (+17 more)
-
-### Community 7 - "Add-to-List Dialog & UI Primitives"
-Cohesion: 0.11
-Nodes (19): AvailabilityBadge(), AvailabilityBadgePlatform, BadgeVariant, ImportResultBadge(), RESULT_CONFIG, getTitleDetail(), MediaCardProps, TituloPage() (+11 more)
-
-### Community 8 - "Auth Actions & List Item Actions"
 Cohesion: 0.06
 Nodes (33): 1.1 Qué implica elegir Lyra, 1.2 Qué implica el base color Mist, 1.3 Configuración base (`components.json`), 1.4 Decisiones complementarias, 1.5 Componentes shadcn por función, 1.6 Layouts compartidos (Header + Sidebar), 1. Sistema de diseño, 2.0 Zona Marketing (+25 more)
 
-### Community 9 - "Supabase Client Layer & Auth Layout"
-Cohesion: 0.11
-Nodes (23): IMDB_TITLE_TYPE_MAP, mapImdbTitleType(), importImdbCsv(), isImdbCsvSourceType(), ImdbImportSummary, runImdbImport(), ImdbCsvRow, parseDateOrNull() (+15 more)
+### Community 6 - "Import Batch Detail Table"
+Cohesion: 0.14
+Nodes (28): assertConfigured(), findByImdbId(), getMovieDetails(), getOverviewFallback(), getTvDetails(), TmdbConfigError, tmdbGet(), TmdbRequestError (+20 more)
 
-### Community 10 - "Recommendation Thresholds & Pagination"
+### Community 7 - "Add-to-List Dialog & UI Primitives"
+Cohesion: 0.13
+Nodes (23): cn(), SortableListItemCard(), MediaCard(), MediaCardProps, DiscoveryCard(), AlertAction(), AlertDialog(), AlertDialogAction() (+15 more)
+
+### Community 8 - "Auth Actions & List Item Actions"
+Cohesion: 0.09
+Nodes (20): BatchHistoryList(), getImportBatches(), ImportSummary(), UploadForm(), ImportarPage(), TmdbSyncProgress(), TmdbSyncScreen(), EMPTY_TOTALS (+12 more)
+
+### Community 9 - "Supabase Client Layer & Auth Layout"
 Cohesion: 0.07
 Nodes (30): addListItemAction, AddToListDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, Button, Checkbox, DataTable (+22 more)
 
-### Community 11 - "IMDb CSV Import Parsing"
+### Community 10 - "Recommendation Thresholds & Pagination"
 Cohesion: 0.07
 Nodes (28): 1.1 Qué implica elegir Lyra, 1.2 Qué implica el base color Mist, 1.3 Configuración base (`components.json`), 1.4 Decisiones complementarias, 1.5 Componentes shadcn por función, 1. Sistema de diseño, 2.1 Zona Auth, 2.2 Zona App (requiere sesión) (+20 more)
 
-### Community 12 - "Import/Title/Genre Detail Fetch Actions"
+### Community 11 - "IMDb CSV Import Parsing"
 Cohesion: 0.07
 Nodes (27): 10. Integraciones y Funcionalidades de Terceros, 11. Consideraciones de Buenas Prácticas, 12. Alcance y Fases (Roadmap), 13. Riesgos, Dudas y Decisiones Pendientes, 14. Próximos Pasos, 1. Resumen Ejecutivo, 2. Objetivo del Negocio, 3. Público Objetivo (+19 more)
 
+### Community 12 - "Import/Title/Genre Detail Fetch Actions"
+Cohesion: 0.18
+Nodes (17): SOURCE_TYPE_LABEL, dateFormatter, SubscriptionHistoryTable(), DataTableProps, title(), TmdbSyncSummary(), Platform, Alert() (+9 more)
+
 ### Community 13 - "App Shell, Session & Login"
 Cohesion: 0.12
-Nodes (16): MARKETING_NAV_ITEMS, APP_NAV_ITEMS, NavItem, MarketingSidebar(), MobileNavTrigger(), Sidebar(), SidebarMobileSheet(), SidebarNavItem() (+8 more)
+Nodes (16): IMDB_TITLE_TYPE_MAP, mapImdbTitleType(), TitleDetailDTO, UserMediaStatusRow, ImdbImportBatchCounts, MediaMatchResult, UserMediaStatusUpsertPatch, Genre (+8 more)
 
 ### Community 14 - "Media Search & Cast Mapping"
-Cohesion: 0.12
-Nodes (18): dateFormatter, SOURCE_TYPE_LABEL, BatchDetailTable(), columns, columns, LibraryTable(), TYPE_LABELS, dateFormatter (+10 more)
+Cohesion: 0.14
+Nodes (16): COUNTRIES, Country, RATING_PRESETS, GenreFilterSelect(), ActivateSubscriptionForm(), ActiveSubscriptionsList(), Checkbox(), SelectContent() (+8 more)
 
 ### Community 15 - "ListServices CRUD"
-Cohesion: 0.28
-Nodes (10): dateFormatter, SOURCE_TYPE_LABEL, Step, STEPS, Card(), CardContent(), CardDescription(), CardHeader() (+2 more)
+Cohesion: 0.13
+Nodes (17): avatarInitials(), Header(), initials(), MobileNavTrigger(), ThemeToggle(), DropdownMenu(), DropdownMenuCheckboxItem(), DropdownMenuContent() (+9 more)
 
 ### Community 16 - "List & Recommendation Server Actions"
 Cohesion: 0.16
 Nodes (6): RECOMMENDATION_THRESHOLDS, ActiveSubscriptionPair, chunk(), MonthlyPick, RecommendationQueryParams, RecommendationServices
 
 ### Community 17 - "ImdbImportServices Batch Pipeline"
-Cohesion: 0.14
-Nodes (16): avatarInitials(), Header(), initials(), ThemeToggle(), DropdownMenu(), DropdownMenuCheckboxItem(), DropdownMenuContent(), DropdownMenuGroup() (+8 more)
+Cohesion: 0.17
+Nodes (12): CreateListDialog(), ThemeSwitch(), useMounted(), Dialog(), DialogContent(), DialogDescription(), DialogFooter(), DialogHeader() (+4 more)
 
 ### Community 18 - "MediaStatusServices Watch State"
 Cohesion: 0.17
-Nodes (16): cn(), AlertAction(), Avatar(), AvatarBadge(), AvatarFallback(), AvatarGroup(), AvatarGroupCount(), AvatarImage() (+8 more)
+Nodes (17): importImdbCsv(), isImdbCsvSourceType(), ImdbImportSummary, runImdbImport(), ImdbCsvRow, parseDateOrNull(), ParsedImdbCsv, parseFloatOrNull() (+9 more)
 
 ### Community 19 - "Slug Generation & List Item Types"
 Cohesion: 0.1
@@ -432,11 +444,11 @@ Nodes (17): Claude Code prompt, code:sql (create policy "user_lists_select" on p
 
 ### Community 29 - "Public List Detail Page"
 Cohesion: 0.18
-Nodes (15): getPublicListUrl(), ListDetail(), SortableListItemCard(), TitleSearchAndAdd(), AlertDialog(), AlertDialogAction(), AlertDialogCancel(), AlertDialogContent() (+7 more)
+Nodes (10): APP_NAV_ITEMS, NavItem, SidebarMobileSheet(), Sheet(), SheetContent(), SheetDescription(), SheetFooter(), SheetHeader() (+2 more)
 
 ### Community 30 - "Mark Watched/Not-Watched Actions"
-Cohesion: 0.17
-Nodes (9): AppLayout(), LoginForm(), LoginPage(), UserContext, UserProvider(), SignUpPage(), SignUpForm(), CurrentUser (+1 more)
+Cohesion: 0.13
+Nodes (13): generatePublicListCode(), getPublicListUrl(), ListDetail(), isUniqueViolation(), ListItemMedia, ListItemWithMedia, ListWithContainsFlag, ListWithItemCount (+5 more)
 
 ### Community 31 - "IMDb Import RLS Policies"
 Cohesion: 0.11
@@ -511,80 +523,80 @@ Cohesion: 0.11
 Nodes (17): Acceptance criteria, code:sql (-- public_code is unique whenever assigned (partial index to), Created, Database validation, Decisions, Deferred / follow-ups, Deleted, Expected outcome (+9 more)
 
 ### Community 49 - "Home() + page.tsx"
-Cohesion: 0.12
-Nodes (16): Architectural style, Catalog Ingestion, code:mermaid (flowchart LR), Configs and constants, Conventions worth preserving, Database (migrations), Features (`features/`), Rikuna — Project Architecture (+8 more)
+Cohesion: 0.21
+Nodes (13): chunk(), countOutcome(), resetFailedTmdbSync(), runTmdbSync(), RunTmdbSyncOptions, TmdbSyncBatchResult, retryFailedTmdbSyncAction(), SyncOutcome (+5 more)
 
 ### Community 50 - "layout.tsx + PublicLayout()"
 Cohesion: 0.12
-Nodes (16): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-15" title="Perfil / cuenta">), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+8 more)
+Nodes (16): Architectural style, Catalog Ingestion, code:mermaid (flowchart LR), Configs and constants, Conventions worth preserving, Database (migrations), Features (`features/`), Rikuna — Project Architecture (+8 more)
 
 ### Community 51 - "page.tsx + PublicListPage()"
 Cohesion: 0.12
-Nodes (16): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-14" title="Mi biblioteca">), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+8 more)
+Nodes (16): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-15" title="Perfil / cuenta">), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+8 more)
 
 ### Community 52 - "layout.tsx + AuthLayout()"
 Cohesion: 0.12
-Nodes (16): Claude Code prompt, code:xml (<task id="RIK-14" title="Mi biblioteca">), Context, Current database state, Current logic (biblioteca), Current state analysis, Decisions made, Impacted files (+8 more)
+Nodes (16): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-14" title="Mi biblioteca">), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+8 more)
 
 ### Community 53 - "client.ts + createClient()"
 Cohesion: 0.12
-Nodes (16): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-1" title="Esquema de base de datos y RLS">), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+8 more)
+Nodes (16): Claude Code prompt, code:xml (<task id="RIK-14" title="Mi biblioteca">), Context, Current database state, Current logic (biblioteca), Current state analysis, Decisions made, Impacted files (+8 more)
 
 ### Community 54 - "ImdbImportRow (type) + NextConfig (bodySizeLimit 4mb for IMD"
 Cohesion: 0.12
-Nodes (15): Claude Code prompt, code:xml (<task id="RIK-5" title="Detalle de importación" depends_on="), Context, Current database state, Current state analysis, Decisions made, Impacted files, Implementation plan (+7 more)
+Nodes (16): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-1" title="Esquema de base de datos y RLS">), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+8 more)
 
 ### Community 55 - "getImportBatches + ImportarPage"
 Cohesion: 0.12
-Nodes (15): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-5" title="Detalle de importación" depends_on="), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+7 more)
+Nodes (15): Claude Code prompt, code:xml (<task id="RIK-5" title="Detalle de importación" depends_on="), Context, Current database state, Current state analysis, Decisions made, Impacted files, Implementation plan (+7 more)
 
 ### Community 56 - "getImportBatchDetail + ImportBatchDetailPage"
 Cohesion: 0.12
-Nodes (16): Claude Code prompt, code:xml (<task id="RIK-1" title="Esquema de base de datos y RLS">), Context, Current database state, Current logic (schema / RLS), Current state analysis, Decisions made, Impacted files (+8 more)
+Nodes (15): Análisis del estado actual, Archivos impactados, code:xml (<task id="RIK-5" title="Detalle de importación" depends_on="), Comentarios del equipo, Contexto, Decisiones tomadas, Discrepancias ticket vs. proyecto, Estado actual en la base de datos (+7 more)
 
 ### Community 57 - "ListItem (type) + MisListaDetallePage"
 Cohesion: 0.12
-Nodes (16): Claude Code prompt, code:xml (<task id="RIK-15" title="Perfil / cuenta">), Context, Current database state, Current logic (perfil), Current state analysis, Decisions made, Impacted files (+8 more)
+Nodes (16): Claude Code prompt, code:xml (<task id="RIK-1" title="Esquema de base de datos y RLS">), Context, Current database state, Current logic (schema / RLS), Current state analysis, Decisions made, Impacted files (+8 more)
 
 ### Community 58 - "getTitleDetail + TituloPage"
-Cohesion: 0.2
-Nodes (12): RATING_PRESETS, GenreFilterSelect(), Checkbox(), SelectContent(), SelectGroup(), SelectItem(), SelectLabel(), SelectScrollDownButton() (+4 more)
+Cohesion: 0.12
+Nodes (16): Claude Code prompt, code:xml (<task id="RIK-15" title="Perfil / cuenta">), Context, Current database state, Current logic (perfil), Current state analysis, Decisions made, Impacted files (+8 more)
 
 ### Community 59 - "markWatched + handleMarkWatched"
-Cohesion: 0.24
-Nodes (9): CreateListDialog(), Dialog(), DialogContent(), DialogDescription(), DialogFooter(), DialogHeader(), DialogOverlay(), DialogTitle() (+1 more)
+Cohesion: 0.18
+Nodes (10): AppLayout(), MARKETING_NAV_ITEMS, MarketingSidebar(), Sidebar(), LoginForm(), LoginPage(), MarketingLayout(), SignUpPage() (+2 more)
 
 ### Community 60 - "platformName (ActiveSubscriptionsList helper) + platformName"
-Cohesion: 0.16
-Nodes (4): generatePublicListCode(), isUniqueViolation(), ListServices, mapUserListRow()
+Cohesion: 0.12
+Nodes (15): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Deleted, Expected outcome, Files changed, Manual validation (+7 more)
 
 ### Community 61 - "countryName (ActiveSubscriptionsList helper) + countryName ("
 Cohesion: 0.12
 Nodes (15): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Deleted, Expected outcome, Files changed, Manual validation (+7 more)
 
 ### Community 62 - "AvailabilityBadge + Badge"
-Cohesion: 0.12
-Nodes (15): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Deleted, Expected outcome, Files changed, Manual validation (+7 more)
-
-### Community 63 - "This is NOT the Next.js you know + graphify usage rules"
 Cohesion: 0.17
 Nodes (16): Catalog Ingestion (two server-only paths), Public Route Group Exception ((public) bypasses auth guard), Service Layer Pattern (SupabaseClient DI, DTO mapping), CatalogSnapshotServices, RIK-1: Secured database foundation, RIK-3: Catalog loading routine, RIK-4: IMDb ratings/watchlist import, getPublicListUrl (+8 more)
 
+### Community 63 - "This is NOT the Next.js you know + graphify usage rules"
+Cohesion: 0.14
+Nodes (8): ActiveSubscriptionPair, AvailabilityRow, AvailabilityWithPlatform, chunk(), ExpireStaleInput, MediaAvailabilityServices, UpsertAvailabilityInput, MediaAvailabilityOfferType
+
 ### Community 64 - "next-env.d.ts"
-Cohesion: 0.19
-Nodes (10): EmptyLibraryState(), LibraryFilters(), LibrarySearchInput(), LibraryTabs(), TABS, Tabs(), TabsContent(), TabsList() (+2 more)
+Cohesion: 0.15
+Nodes (12): isUniqueViolation(), withSlugRetry(), CastMember, CastRow, GenreRow, MediaItemRow, MediaManyFilters, MediaSearchResult (+4 more)
 
 ### Community 65 - "MediaItem (type)"
-Cohesion: 0.23
-Nodes (7): useSession(), ProfileScreen(), ThemeSwitch(), useMounted(), useUserContext(), Label(), Switch()
-
-### Community 66 - "Genre (type)"
 Cohesion: 0.13
 Nodes (14): Fuera de alcance para v1, Pendientes de producto que bloquean a nivel de datos, RIK-10 — Mis listas, RIK-11 — Lista pública y ficha de título pública (sin sesión), RIK-1 — Esquema de base de datos y RLS, RIK-2 — Autenticación y estructura de rutas, RIK-3 — Ingesta del catálogo de disponibilidad, RIK-4 — Importación desde IMDb (calificaciones y watchlist) (+6 more)
 
-### Community 67 - "Person (type)"
+### Community 66 - "Genre (type)"
 Cohesion: 0.13
 Nodes (14): Acceptance criteria, code:markdown (## Prerequisites), code:block2, Created, Decisions, Deferred / follow-ups, Deleted, Files changed (+6 more)
+
+### Community 67 - "Person (type)"
+Cohesion: 0.13
+Nodes (14): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Expected outcome, Files changed, Manual validation, Modified (+6 more)
 
 ### Community 68 - "Platform (type)"
 Cohesion: 0.13
@@ -592,169 +604,217 @@ Nodes (14): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Expe
 
 ### Community 69 - "CatalogSnapshot (type)"
 Cohesion: 0.19
+Nodes (11): geistMono, geistSans, inter, metadata, robotoSlabHeading, RootLayout(), SidebarNavItem(), Tooltip() (+3 more)
+
+### Community 71 - "UserSubscription (type)"
+Cohesion: 0.19
 Nodes (4): slugify(), ImdbImportServices, mapBatchRow(), mapMediaItemRow()
 
-### Community 70 - "MediaAvailability (type)"
+### Community 72 - "UserMediaStatus (type)"
 Cohesion: 0.14
 Nodes (13): Acceptance criteria, code:markdown (## Prerequisites), Created, Decisions, Deferred / follow-ups, Deleted, Files changed, Manual validation (+5 more)
 
-### Community 71 - "UserSubscription (type)"
-Cohesion: 0.21
-Nodes (10): geistMono, geistSans, inter, metadata, robotoSlabHeading, RootLayout(), Tooltip(), TooltipContent() (+2 more)
-
-### Community 72 - "UserMediaStatus (type)"
-Cohesion: 0.23
-Nodes (6): COUNTRIES, Country, ActivateSubscriptionForm(), ActiveSubscriptionsList(), dateFormatter, SubscriptionHistoryTable()
-
 ### Community 73 - "ImdbImportBatch (type)"
-Cohesion: 0.18
-Nodes (10): isUniqueViolation(), withSlugRetry(), ListItemMedia, ListItemWithMedia, ListWithContainsFlag, ListWithItemCount, ListWithItems, PublicListView (+2 more)
+Cohesion: 0.19
+Nodes (9): EmptyLibraryState(), LibraryFilters(), LibraryScreen(), LibrarySearchInput(), columns, LibraryTable(), PAGE_SIZE_OPTIONS, TYPE_LABELS (+1 more)
 
 ### Community 74 - "RootLayout"
 Cohesion: 0.15
 Nodes (12): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Deleted, Files changed, Manual validation, Modified (+4 more)
 
 ### Community 75 - "Home (default create-next-app landing page)"
-Cohesion: 0.17
-Nodes (10): CastMember, CastRow, GenreRow, MediaItemRow, MediaManyFilters, MediaSearchResult, PersonRow, TitleWithDetails (+2 more)
+Cohesion: 0.24
+Nodes (13): addToWatchlist, RIK-9: Title detail page, DiscoveryCard, dismissRecommendation, getTitleDetail, markNotWatched, markWatched, MediaAvailabilityServices.getAvailableForMedia (+5 more)
 
 ### Community 76 - "RecomendacionesPage"
-Cohesion: 0.17
-Nodes (11): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Files changed, Manual validation, Modified, RIK-3 — Catalog ingestion (+3 more)
+Cohesion: 0.21
+Nodes (6): EmptySubscriptionState(), PanelPage(), PanelGrid(), counterCopy(), PanelHeader(), getActiveSubscriptionsWithPlatformAction()
 
 ### Community 77 - "PublicLayout"
-Cohesion: 0.17
-Nodes (11): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Files changed, Manual validation, Modified, RIK-4 — Importación desde IMDb (calificaciones y watchlist) (+3 more)
+Cohesion: 0.2
+Nodes (6): getActiveSubscriptionsAction(), getKnownPlatformsAction(), getSubscriptionHistoryAction(), ActivateSubscriptionActionState, SuscripcionesPage(), UserSubscription
 
 ### Community 78 - "IMDB_TITLE_TYPE_MAP"
 Cohesion: 0.18
+Nodes (5): ActiveSubscriptionWithPlatform, mapRow(), SubscriptionServices, UserSubscriptionRow, ActivateSubscriptionInput
+
+### Community 80 - "StubNotice"
+Cohesion: 0.17
+Nodes (11): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Files changed, Manual validation, Modified, RIK-3 — Catalog ingestion (+3 more)
+
+### Community 81 - "CastList"
+Cohesion: 0.17
+Nodes (11): Acceptance criteria, Created, Decisions, Deferred / follow-ups, Files changed, Manual validation, Modified, RIK-4 — Importación desde IMDb (calificaciones y watchlist) (+3 more)
+
+### Community 82 - "initials (CastList helper)"
+Cohesion: 0.18
 Nodes (12): activateSubscriptionAction, ActivateSubscriptionForm, RIK-6: Mis suscripciones screen, createListAction, CreateListDialog, importImdbCsv, isImdbCsvSourceType, isUniqueViolation (ListServices module) (+4 more)
 
-### Community 79 - "countryName"
+### Community 83 - "TitleDetail"
 Cohesion: 0.21
 Nodes (12): ImdbCsvSourceType (type), ImdbImportRowResult (type), runImdbImport, parseCatalogFile, ImdbCsvRow (type), parseImdbCsv, KNOWN_PLATFORMS, processImdbCsvRow (+4 more)
 
-### Community 80 - "StubNotice"
-Cohesion: 0.27
-Nodes (12): addToWatchlist, RIK-9: Title detail page, DiscoveryCard, dismissRecommendation, getTitleDetail, markNotWatched, markWatched, MediaAvailabilityServices.getAvailableForMedia (+4 more)
-
-### Community 81 - "CastList"
-Cohesion: 0.2
-Nodes (12): RIK-7: Panel Qué ver este mes, RIK-8: Recomendaciones screen, getGenres, getMonthlyWatchlist, getRecommendations, MediaStatusServices.markWatched, PanelGridSection (internal async component), RecommendationsSection (internal async component) (+4 more)
-
 ### Community 84 - "GenreFilterSelect"
 Cohesion: 0.24
-Nodes (10): handle_updated_at() trigger function, media_items table, media_people table, people table, user_media_status table, media_items_select policy, owner_all policy (user_media_status), media_items_insert_stub policy (+2 more)
+Nodes (8): parseCatalogFile(), VALID_ITEM_TYPES, VALID_OFFER_TYPES, validateCatalogFile(), RawCatalogFile, RawCatalogItem, RawCatalogItemType, RawCatalogOfferType
 
 ### Community 85 - "RecommendationsScreen"
+Cohesion: 0.27
+Nodes (7): AvailabilityBadge(), AvailabilityBadgePlatform, BadgeVariant, RESULT_CONFIG, WhereToWatch(), Badge(), badgeVariants
+
+### Community 86 - "SubscriptionHistoryTable"
+Cohesion: 0.24
+Nodes (6): getTitleDetail(), TituloPage(), StubNotice(), TitleActions(), TitleDetail(), votesFormatter
+
+### Community 88 - "BatchHistoryList"
+Cohesion: 0.22
+Nodes (11): RIK-7: Panel Qué ver este mes, RIK-8: Recomendaciones screen, getGenres, getMonthlyWatchlist, getRecommendations, PanelGridSection (internal async component), RecommendationsSection (internal async component), RecommendationServices.getDiscovery (+3 more)
+
+### Community 89 - "ImportResultBadge"
+Cohesion: 0.22
+Nodes (5): CatalogSnapshotServices, CreateSnapshotInput, mapSnapshotRow(), CatalogSnapshot, CatalogSnapshotStatus
+
+### Community 90 - "AspectRatio"
+Cohesion: 0.27
+Nodes (7): CastList(), Avatar(), AvatarBadge(), AvatarFallback(), AvatarGroup(), AvatarGroupCount(), AvatarImage()
+
+### Community 91 - "AlertDialog"
+Cohesion: 0.24
+Nodes (6): useSession(), ProfileScreen(), UserContext, UserProvider(), useUserContext(), CurrentUser
+
+### Community 92 - "AlertDialogTrigger"
+Cohesion: 0.22
+Nodes (8): dateFormatter, ImportBatchDetailPage(), SOURCE_TYPE_LABEL, BatchDetailTable(), columns, ImportResultBadge(), getImportBatchDetail(), DataTable()
+
+### Community 93 - "AlertDialogPortal"
+Cohesion: 0.29
+Nodes (7): LibraryTabs(), TABS, Tabs(), TabsContent(), TabsList(), tabsListVariants, TabsTrigger()
+
+### Community 95 - "AlertDialogHeader"
+Cohesion: 0.24
+Nodes (10): genres table, handle_updated_at() trigger function, media_genres table, media_items table, user_media_status table, media_items_select policy, owner_all policy (user_media_status), genres_insert policy (+2 more)
+
+### Community 96 - "AlertDialogFooter"
+Cohesion: 0.33
+Nodes (7): BibliotecaPage(), BibliotecaSearchParams, parseRating(), parseTab(), parseType(), parseYear(), VALID_TABS
+
+### Community 97 - "AlertDialogMedia"
 Cohesion: 0.31
 Nodes (4): Hero(), HowItWorks(), MarketingFooter(), TrustSection()
 
-### Community 86 - "SubscriptionHistoryTable"
-Cohesion: 0.33
-Nodes (5): BatchHistoryList(), ImportSummary(), UploadForm(), RadioGroup(), RadioGroupItem()
-
-### Community 87 - "ActiveSubscriptionsList"
+### Community 98 - "AlertDialogTitle"
 Cohesion: 0.28
 Nodes (3): chunk(), mapMediaItemRow(), MediaServices
 
-### Community 88 - "BatchHistoryList"
+### Community 99 - "AlertDialogDescription"
 Cohesion: 0.28
 Nodes (9): AuthLayout, forgotPassword, updatePassword, Auth layout must not blanket-redirect authenticated users, ForgotPasswordPage, LoginPage, getCurrentUser, SignUpPage (+1 more)
 
-### Community 89 - "ImportResultBadge"
-Cohesion: 0.5
-Nodes (5): SOURCE_TYPE_LABEL, Alert(), AlertDescription(), AlertTitle(), alertVariants
+### Community 100 - "Card"
+Cohesion: 0.36
+Nodes (5): resolvePlatform(), filePath, ingestCatalogFile(), IngestCatalogFileResult, createAdminClient()
 
-### Community 90 - "AspectRatio"
+### Community 101 - "CardHeader"
 Cohesion: 0.25
-Nodes (6): ImportBatchDetailPage(), getImportBatchDetail(), getImportBatches(), ImportarPage(), ImdbImportBatch, ImdbImportRow
+Nodes (3): RecommendationsSection(), getRecommendations(), RecommendationsScreen()
 
-### Community 92 - "AlertDialogTrigger"
-Cohesion: 0.25
-Nodes (8): createAdminClient, Supabase Integration (separate server/browser/admin clients), createClient (browser), UserList (type), AppLayout, MisListasPage, proxy (root middleware entry), updateSession
+### Community 102 - "CardTitle"
+Cohesion: 0.29
+Nodes (7): LibrarySection(), getLibrary(), GetLibraryParams, LibraryResult, LibraryRow, LibraryTab, statusFilterForTab()
 
-### Community 93 - "AlertDialogPortal"
+### Community 103 - "CardDescription"
 Cohesion: 0.32
 Nodes (8): list_items table, user_lists table, list_items_select policy, list_items_write policy, user_lists_delete policy, user_lists_select policy, user_lists_update policy, user_lists_write policy
 
-### Community 94 - "AlertDialogOverlay"
+### Community 104 - "CardAction"
+Cohesion: 0.25
+Nodes (8): createAdminClient, Supabase Integration (separate server/browser/admin clients), createClient (browser), UserList (type), AppLayout, MisListasPage, proxy (root middleware entry), updateSession
+
+### Community 105 - "CardContent"
 Cohesion: 0.38
 Nodes (5): config, proxy(), AUTH_ONLY_PATHS, PROTECTED_PREFIXES, updateSession()
 
-### Community 95 - "AlertDialogHeader"
+### Community 106 - "CardFooter"
 Cohesion: 0.29
 Nodes (6): Added, Changed, Changelog, Fixed, Removed, [Unreleased]
 
-### Community 96 - "AlertDialogFooter"
+### Community 107 - "Progress"
 Cohesion: 0.29
 Nodes (6): code:block1 (<YYYYMMDDHHmm>_<TICKET-ID>_<snake_case_slug>.md), code:markdown (# <TICKET-ID> — <title>), Filename, Implementation logs, Log template, Relationship to other artifacts
 
-### Community 98 - "AlertDialogTitle"
-Cohesion: 0.47
-Nodes (6): GET (auth callback route handler), GET (auth confirm route handler), Confirm route handles both PKCE code and token_hash flows, createClient, supabase.auth.exchangeCodeForSession, supabase.auth.verifyOtp
+### Community 109 - "ProgressIndicator"
+Cohesion: 0.33
+Nodes (4): CastLink, PendingMediaItem, TmdbSyncCounts, TmdbSyncStatus
 
-### Community 99 - "AlertDialogDescription"
+### Community 110 - "ProgressLabel"
 Cohesion: 0.4
 Nodes (6): imdb_import_batches table, imdb_import_rows table, owner_all policy (imdb_import_batches), owner_all policy (imdb_import_rows), BatchDetailTable, ImportSummary
 
-### Community 100 - "Card"
+### Community 111 - "ProgressValue"
 Cohesion: 0.47
 Nodes (6): catalog_snapshots table, media_availability table, platforms table, user_subscriptions table, owner_all policy (user_subscriptions), WhereToWatch
 
-### Community 101 - "CardHeader"
+### Community 112 - "TooltipProvider"
+Cohesion: 0.47
+Nodes (6): GET (auth callback route handler), GET (auth confirm route handler), Confirm route handles both PKCE code and token_hash flows, createClient, supabase.auth.exchangeCodeForSession, supabase.auth.verifyOtp
+
+### Community 113 - "Tooltip"
+Cohesion: 0.5
+Nodes (3): ResolvedPlatform, KNOWN_PLATFORMS, PlatformSeed
+
+### Community 114 - "TooltipTrigger"
 Cohesion: 0.4
 Nodes (4): code:bash (npm run dev), Deploy on Vercel, Getting Started, Learn More
 
-### Community 102 - "CardTitle"
+### Community 115 - "Alert"
 Cohesion: 0.4
 Nodes (5): EmptySubscriptionState, getActiveSubscriptionsAction, getKnownPlatformsAction, getSubscriptionHistoryAction, SuscripcionesPage
 
-### Community 103 - "CardDescription"
+### Community 116 - "AlertTitle"
 Cohesion: 0.6
 Nodes (5): ImdbImportServices.findOrCreateMediaItem, ListServices.createList, MediaServices.upsertOrCreateStub, slugify, withSlugRetry
 
-### Community 105 - "CardContent"
+### Community 117 - "AlertDescription"
 Cohesion: 0.5
 Nodes (4): signIn, signUp, LoginForm, SignUpForm
 
-### Community 106 - "CardFooter"
-Cohesion: 0.5
-Nodes (4): genres table, media_genres table, genres_insert policy, media_genres_insert policy
-
-### Community 107 - "Progress"
+### Community 118 - "AlertAction"
 Cohesion: 0.67
 Nodes (4): Rikuna MVP Schema Design (RIK-1 v3), RLS Enablement Design (RIK-1), Stub-Only Insert Policy Design (RIK-4), RIKUNA PRD: Database Schema (spec doc)
 
-### Community 108 - "ProgressTrack"
+### Community 119 - "RadioGroup"
+Cohesion: 0.5
+Nodes (4): media_people table, people table, media_people_insert policy, people_insert policy
+
+### Community 120 - "Avatar"
 Cohesion: 0.67
 Nodes (3): PublicListPage, ListGrid, SortableListItemCard
 
-### Community 109 - "ProgressIndicator"
-Cohesion: 0.67
-Nodes (3): mapImdbTitleType, Fail-open IMDb title type mapping, MediaType
-
-### Community 110 - "ProgressLabel"
-Cohesion: 0.67
-Nodes (3): COUNTRIES, PanelGrid, PanelHeader
-
-### Community 111 - "ProgressValue"
+### Community 121 - "AvatarImage"
 Cohesion: 0.67
 Nodes (3): Recommendation thresholds mirror external availability process, RECOMMENDATION_THRESHOLDS, schema-basedatos-rikuna.md (Section 8.2)
 
-### Community 112 - "TooltipProvider"
+### Community 122 - "AvatarFallback"
 Cohesion: 0.67
-Nodes (3): getActiveSubscriptionsAction, getActiveSubscriptionsWithPlatformAction, PanelPage
+Nodes (3): mapImdbTitleType, Fail-open IMDb title type mapping, MediaType
 
-### Community 113 - "Tooltip"
+### Community 123 - "AvatarBadge"
 Cohesion: 0.67
-Nodes (3): signOut, useUserContext, useSession
+Nodes (3): COUNTRIES, PanelGrid, PanelHeader
 
-### Community 114 - "TooltipTrigger"
+### Community 124 - "AvatarGroup"
 Cohesion: 0.67
 Nodes (3): MediaServices.searchByTitle, searchTitles, TitleSearchAndAdd
 
-### Community 115 - "Alert"
+### Community 125 - "AvatarGroupCount"
+Cohesion: 0.67
+Nodes (3): getActiveSubscriptionsAction, getActiveSubscriptionsWithPlatformAction, PanelPage
+
+### Community 126 - "DialogPortal"
+Cohesion: 0.67
+Nodes (3): signOut, useUserContext, useSession
+
+### Community 127 - "DialogClose"
 Cohesion: 0.67
 Nodes (3): RIK-5: Import history list and detail, ImdbImportServices.getBatchWithRows, ImdbImportServices.listBatchesForUser
 
@@ -769,7 +829,7 @@ Nodes (3): RIK-5: Import history list and detail, ImdbImportServices.getBatchWit
   specs/backlog/RIK-11_public_list_sharing.md · relation: references
 
 ## Knowledge Gaps
-- **944 isolated node(s):** `config`, `config`, `eslintConfig`, `nextConfig`, `ParsedImdbCsv` (+939 more)
+- **966 isolated node(s):** `config`, `config`, `eslintConfig`, `nextConfig`, `ParsedImdbCsv` (+961 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **132 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -784,9 +844,9 @@ _Questions this graph is uniquely positioned to answer:_
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **What is the exact relationship between `RIK-11: Public List Sharing and Public Title Page` and `MediaCard component`?**
   _Edge tagged AMBIGUOUS (relation: references) - confidence is low._
-- **Why does `cn()` connect `MediaStatusServices Watch State` to `next-env.d.ts`, `MediaItem (type)`, `Catalog Ingestion & Subscription Activation`, `Add-to-List Dialog & UI Primitives`, `UserSubscription (type)`, `App Shell, Session & Login`, `Media Search & Cast Mapping`, `ListServices CRUD`, `ImdbImportServices Batch Pipeline`, `SubscriptionHistoryTable`, `ImportResultBadge`, `getTitleDetail + TituloPage`, `markWatched + handleMarkWatched`, `Public List Detail Page`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
-- **Why does `Button()` connect `Add-to-List Dialog & UI Primitives` to `MediaItem (type)`, `Catalog Ingestion & Subscription Activation`, `UserMediaStatus (type)`, `App Shell, Session & Login`, `Media Search & Cast Mapping`, `ListServices CRUD`, `ImdbImportServices Batch Pipeline`, `MediaStatusServices Watch State`, `RecommendationsScreen`, `SubscriptionHistoryTable`, `markWatched + handleMarkWatched`, `Public List Detail Page`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
-- **Why does `MediaStatusServices` connect `TitleDetail` to `Import Batch Detail Table`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Why does `cn()` connect `Add-to-List Dialog & UI Primitives` to `User Lists Specs & Public Sharing`, `CatalogSnapshot (type)`, `Auth Actions & List Item Actions`, `ImdbImportBatch (type)`, `Import/Title/Genre Detail Fetch Actions`, `Media Search & Cast Mapping`, `ListServices CRUD`, `ImdbImportServices Batch Pipeline`, `Public List Detail Page`, `RecommendationsScreen`, `AspectRatio`, `markWatched + handleMarkWatched`, `AlertDialogPortal`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **Why does `slugify()` connect `UserSubscription (type)` to `next-env.d.ts`, `AlertDialogTitle`, `MediaAvailability (type)`, `ProgressIndicator`, `App Shell, Session & Login`, `countryName`, `Mark Watched/Not-Watched Actions`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+- **Why does `TmdbSyncServices` connect `MediaAvailability (type)` to `ProgressIndicator`?**
+  _High betweenness centrality (0.007) - this node is a cross-community bridge._

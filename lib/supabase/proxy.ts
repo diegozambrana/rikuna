@@ -7,6 +7,7 @@ const PROTECTED_PREFIXES = [
   "/mis-listas",
   "/suscripciones",
   "/importar",
+  "/sincronizar",
   "/perfil",
 ]
 

@@ -29,6 +29,14 @@ export type { MonthlyPick, RecommendationQueryParams } from "./RecommendationSer
 
 export { MediaStatusServices } from "./MediaStatusServices"
 
+export { TmdbSyncServices } from "./TmdbSyncServices"
+export type {
+  TmdbSyncStatus,
+  TmdbSyncCounts,
+  PendingMediaItem,
+  CastLink,
+} from "./TmdbSyncServices"
+
 export { ListServices } from "./ListServices"
 export type {
   ListWithItemCount,

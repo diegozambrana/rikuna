@@ -5,6 +5,7 @@ import {
   ListVideo,
   Tv,
   Upload,
+  RefreshCw,
   type LucideIcon,
 } from "lucide-react"
 
@@ -21,4 +22,5 @@ export const APP_NAV_ITEMS: NavItem[] = [
   { label: "Mis listas", href: "/mis-listas", icon: ListVideo },
   { label: "Mis suscripciones", href: "/suscripciones", icon: Tv },
   { label: "Importar desde IMDb", href: "/importar", icon: Upload },
+  { label: "Sincronizar catálogo", href: "/sincronizar", icon: RefreshCw },
 ]
