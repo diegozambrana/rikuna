@@ -59,6 +59,19 @@ export type ExpireStaleInput = {
   snapshotId: string
 }
 
+/** One offer TMDB reported for a title, already resolved to a platforms row. */
+export type TmdbAvailabilityRow = {
+  platformId: string
+  country: string
+  offerType: MediaAvailabilityOfferType
+  url: string | null
+}
+
+export type ReconcileAvailabilityResult = {
+  upserted: number
+  expired: number
+}
+
 // Ficha read (RIK-9) — one available row plus its platform, so
 // features/title/WhereToWatch can render name/link without a second query.
 export type AvailabilityWithPlatform = {
@@ -178,6 +191,12 @@ export class MediaAvailabilityServices {
    * deleting it. `.neq()` alone would silently exclude null rows, so the
    * null case is handled explicitly via `.or()` to match SQL's
    * "is distinct from" semantics.
+   *
+   * Scoped to source='catalog' (RIK-17): rows written by
+   * ingestion/availability-sync belong to no snapshot, so the null branch of
+   * that `.or()` would match every single one of them and a catalog load
+   * would switch off every TMDB-sourced link. Their lifecycle is governed by
+   * reconcileForMedia instead.
    */
   async expireStale(input: ExpireStaleInput): Promise<number> {
     const { data, error } = await this.client
@@ -186,10 +205,97 @@ export class MediaAvailabilityServices {
       .eq("platform_id", input.platformId)
       .eq("country", input.country)
       .eq("is_available", true)
+      .eq("source", "catalog")
       .or(`last_snapshot_id.is.null,last_snapshot_id.neq.${input.snapshotId}`)
       .select("id")
 
     if (error) throw error
     return data?.length ?? 0
   }
+
+  /**
+   * Per-title reconciliation for the TMDB availability sync (RIK-17).
+   *
+   * The catalog path's upsert()/expireStale() pair reasons in
+   * (platform, country, snapshot) because each file only knows about one
+   * platform. TMDB is the opposite: one call returns the COMPLETE truth for a
+   * title across every platform and country, so the unit here is media_id —
+   * upsert what was seen, switch off what this title used to have and no
+   * longer does.
+   *
+   * Bounded to source='tmdb' in both directions: it never expires rows that
+   * ingestion/catalog owns, and it never writes last_snapshot_id. Omitting
+   * that column is deliberate rather than passing null — in
+   * `INSERT … ON CONFLICT DO UPDATE` only the columns present in the payload
+   * are assigned, so omitting it preserves whatever snapshot provenance a
+   * shared row already had and lets the DEFAULT (null) apply on insert.
+   *
+   * `rows` MUST already be deduplicated by (platformId, country, offerType):
+   * two entries with the same conflict key in one statement make Postgres
+   * raise "cannot affect row a second time". That's not hypothetical — TMDB's
+   * flatrate/free/ads buckets all collapse onto offer_type 'subscription' and
+   * a provider can appear in more than one of them. ingestion's mapProviders
+   * is where that dedup happens.
+   */
+  async reconcileForMedia(
+    mediaId: string,
+    rows: TmdbAvailabilityRow[],
+    seenAt: string
+  ): Promise<ReconcileAvailabilityResult> {
+    // Read BEFORE the upsert, so `existing` can't contain what we're about to
+    // write and the diff below is a plain set difference.
+    const { data: existing, error: readError } = await this.client
+      .from("media_availability")
+      .select("id, platform_id, country, offer_type")
+      .eq("media_id", mediaId)
+      .eq("source", "tmdb")
+      .eq("is_available", true)
+
+    if (readError) throw readError
+
+    if (rows.length > 0) {
+      // Uniform payload keys on purpose: PostgREST fills missing keys with
+      // null on a bulk upsert rather than leaving the column alone.
+      const { error } = await this.client.from("media_availability").upsert(
+        rows.map((row) => ({
+          media_id: mediaId,
+          platform_id: row.platformId,
+          country: row.country,
+          offer_type: row.offerType,
+          url: row.url,
+          is_available: true,
+          last_seen_at: seenAt,
+          source: "tmdb",
+        })),
+        { onConflict: "media_id,platform_id,country,offer_type" }
+      )
+
+      if (error) throw error
+    }
+
+    const seen = new Set(rows.map((row) => `${row.platformId}|${row.country}|${row.offerType}`))
+    const staleIds = ((existing ?? []) as StaleAvailabilityRow[])
+      .filter((row) => !seen.has(`${row.platform_id}|${row.country}|${row.offer_type}`))
+      .map((row) => row.id)
+
+    // Expire by explicit id — building an `.or()` of tuples is exactly the
+    // shape that blows past Kong's request-line limit.
+    for (const idChunk of chunk(staleIds, ID_CHUNK_SIZE)) {
+      const { error } = await this.client
+        .from("media_availability")
+        .update({ is_available: false })
+        .in("id", idChunk)
+
+      if (error) throw error
+    }
+
+    return { upserted: rows.length, expired: staleIds.length }
+  }
+}
+
+type StaleAvailabilityRow = {
+  id: string
+  platform_id: string
+  country: string
+  offer_type: MediaAvailabilityOfferType
 }

@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js"
-import { slugify } from "@/lib/slug"
+import { isUniqueViolation, slugify, withSlugRetry } from "@/lib/slug"
 
 export type TmdbSyncStatus = "pending" | "synced" | "not_found" | "failed"
 
@@ -158,12 +158,38 @@ export class TmdbSyncServices {
     return found
   }
 
-  /** Writes the enrichment payload and flips the row out of 'pending'. */
+  /**
+   * Writes the enrichment payload and flips the row out of 'pending'.
+   *
+   * `desiredSlug` is only passed for rows imported from an id-only CSV, whose
+   * slug is still the IMDb id placeholder. It goes through the same
+   * unique-violation retry as the insert path, and a slug that can't be
+   * claimed after all attempts is dropped rather than failing the title: an
+   * ugly URL is a much smaller problem than a row stuck in 'pending'.
+   */
   async applySyncResult(
     mediaId: string,
     patch: Record<string, unknown>,
-    status: TmdbSyncStatus
+    status: TmdbSyncStatus,
+    desiredSlug?: string
   ): Promise<void> {
+    if (desiredSlug) {
+      try {
+        await withSlugRetry(desiredSlug, async (slug) => {
+          const { error } = await this.client
+            .from("media_items")
+            .update({ ...patch, slug, tmdb_sync_status: status })
+            .eq("id", mediaId)
+
+          if (error) throw error
+        })
+        return
+      } catch (error) {
+        if (!isUniqueViolation(error)) throw error
+        // Fall through and write everything except the slug.
+      }
+    }
+
     const { error } = await this.client
       .from("media_items")
       .update({ ...patch, tmdb_sync_status: status })

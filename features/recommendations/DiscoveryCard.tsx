@@ -50,6 +50,7 @@ export function DiscoveryCard({
   return (
     <div className="flex flex-col gap-1.5">
       <MediaCard
+        href={`/titulo/${item.slug}`}
         title={item.title}
         year={item.year}
         posterUrl={item.posterUrl}

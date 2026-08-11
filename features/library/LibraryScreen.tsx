@@ -1,8 +1,8 @@
 import type { GetLibraryParams, LibraryRow } from "@/actions/media"
 import type { Genre } from "@/types"
+import { SearchParamInput } from "@/components/SearchParamInput"
 import { EmptyLibraryState } from "./EmptyLibraryState"
 import { LibraryFilters } from "./LibraryFilters"
-import { LibrarySearchInput } from "./LibrarySearchInput"
 import { LibraryTable } from "./LibraryTable"
 import { LibraryTabs } from "./LibraryTabs"
 
@@ -41,7 +41,12 @@ export function LibraryScreen({
       ) : (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <LibrarySearchInput currentQuery={filters.query} />
+            <SearchParamInput
+              param="q"
+              currentValue={filters.query}
+              placeholder="Buscar por título…"
+              label="Buscar por título"
+            />
             <LibraryFilters
               genres={genres}
               currentType={filters.type}

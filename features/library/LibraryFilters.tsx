@@ -25,6 +25,20 @@ const RATING_PRESETS = [
   { value: "9", label: "9+" },
 ]
 
+// Base UI's Select.Value renders the raw value unless Root is handed this
+// value -> label map, which is how a sentinel would otherwise show up in the
+// trigger as literal "__all_types__".
+const TYPE_ITEMS: Record<string, string> = {
+  [ALL_TYPES]: "Todos",
+  movie: "Película",
+  tv: "Serie",
+}
+
+const RATING_ITEMS: Record<string, string> = {
+  [ANY_RATING]: "Cualquiera",
+  ...Object.fromEntries(RATING_PRESETS.map((preset) => [preset.value, preset.label])),
+}
+
 export function LibraryFilters({
   genres,
   currentType,
@@ -46,6 +60,11 @@ export function LibraryFilters({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
+  const genreItems: Record<string, string> = {
+    [ALL_GENRES]: "Todos los géneros",
+    ...Object.fromEntries(genres.map((genre) => [genre.slug, genre.name])),
+  }
+
   function updateParam(key: string, value: string | undefined) {
     const params = new URLSearchParams(searchParams.toString())
 
@@ -64,6 +83,7 @@ export function LibraryFilters({
       <div className="flex flex-col gap-1">
         <Label className="text-xs text-muted-foreground">Tipo</Label>
         <Select
+          items={TYPE_ITEMS}
           value={currentType ?? ALL_TYPES}
           onValueChange={(value) => updateParam("tipo", value === ALL_TYPES ? undefined : (value as string))}
         >
@@ -81,6 +101,7 @@ export function LibraryFilters({
       <div className="flex flex-col gap-1">
         <Label className="text-xs text-muted-foreground">Género</Label>
         <Select
+          items={genreItems}
           value={currentGenreSlug ?? ALL_GENRES}
           onValueChange={(value) => updateParam("genero", value === ALL_GENRES ? undefined : (value as string))}
         >
@@ -133,6 +154,7 @@ export function LibraryFilters({
       <div className="flex flex-col gap-1">
         <Label className="text-xs text-muted-foreground">Calificación mínima</Label>
         <Select
+          items={RATING_ITEMS}
           value={currentRatingMin ? String(currentRatingMin) : ANY_RATING}
           onValueChange={(value) => updateParam("calificacion", value === ANY_RATING ? undefined : (value as string))}
         >

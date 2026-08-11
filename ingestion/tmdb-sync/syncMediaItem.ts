@@ -1,3 +1,4 @@
+import { slugify } from "@/lib/slug"
 import type { PendingMediaItem, TmdbSyncServices, TmdbSyncStatus } from "@/services"
 import {
   findByImdbId,
@@ -59,7 +60,20 @@ export async function syncMediaItem(
   }
 
   try {
-    await services.applySyncResult(item.id, toMediaItemPatch(details, item.imdbId), "synced")
+    // A row imported from an id-only CSV has no title of its own: both its
+    // title and its slug are the IMDb id standing in until now. TMDB just
+    // supplied the real name, so the slug gets rebuilt too — otherwise the
+    // ficha would live at /titulo/tt0111161 forever.
+    const isPlaceholderTitle = item.title === item.imdbId
+    const desiredSlug =
+      isPlaceholderTitle && details.title ? slugify(details.title, details.year) : undefined
+
+    await services.applySyncResult(
+      item.id,
+      toMediaItemPatch(details, item.imdbId),
+      "synced",
+      desiredSlug
+    )
     await services.linkGenres(item.id, details.genreNames)
     await services.linkCast(
       item.id,

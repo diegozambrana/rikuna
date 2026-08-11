@@ -49,6 +49,7 @@ export function RecommendationsScreen({
             {watchlistAvailable.map((item) => (
               <MediaCard
                 key={item.id}
+                href={`/titulo/${item.slug}`}
                 title={item.title}
                 year={item.year}
                 posterUrl={item.posterUrl}

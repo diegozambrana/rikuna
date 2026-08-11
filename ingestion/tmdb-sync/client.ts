@@ -1,4 +1,8 @@
 import type {
+  TmdbProviderDirectoryResponse,
+  TmdbWatchProvidersResponse,
+} from "@/ingestion/availability-sync/types"
+import type {
   TmdbFindMatch,
   TmdbFindResponse,
   TmdbMovieResponse,
@@ -126,4 +130,39 @@ export async function getOverviewFallback(
       : await tmdbGet<TmdbTvResponse>(`/tv/${tmdbId}`, { language: FALLBACK_LANGUAGE })
 
   return details?.overview?.trim() || null
+}
+
+/**
+ * Where a title can be watched — every country in a single call, since
+ * `results` is keyed by ISO-3166-1 alpha-2. That's what makes syncing all of
+ * constants/countries.ts cost one request per title instead of eight.
+ *
+ * No `language` param: the values this reads are brand names, which TMDB
+ * returns identically whatever locale you ask for, and the platform matching
+ * downstream normalises them anyway.
+ *
+ * Lives here rather than in a second client module so it inherits
+ * assertConfigured(), the shared credentials and the "404 -> null, other
+ * non-2xx -> throw" contract — a separate module would also break
+ * `instanceof TmdbConfigError` across the two.
+ */
+export async function getWatchProviders(
+  tmdbId: number,
+  kind: "movie" | "tv"
+): Promise<TmdbWatchProvidersResponse | null> {
+  return tmdbGet<TmdbWatchProvidersResponse>(`/${kind}/${tmdbId}/watch/providers`)
+}
+
+/**
+ * TMDB's full provider directory for a media kind. Asked WITHOUT
+ * `watch_region` on purpose: the global catalog is a superset of Rikuna's
+ * eight markets, so this is two requests total instead of sixteen.
+ *
+ * Only the platforms.provider_id_movie/provider_id_tv backfill needs this —
+ * the availability sync itself matches on normalised names.
+ */
+export async function getProviderDirectory(
+  kind: "movie" | "tv"
+): Promise<TmdbProviderDirectoryResponse | null> {
+  return tmdbGet<TmdbProviderDirectoryResponse>(`/watch/providers/${kind}`)
 }

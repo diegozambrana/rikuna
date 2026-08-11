@@ -134,6 +134,13 @@ export function mapTvDetails(payload: TmdbTvResponse): TmdbDetails {
 export function toMediaItemPatch(details: TmdbDetails, imdbId: string) {
   return {
     tmdb_id: details.id,
+    // Corrects the guess the insert paths had to make: the catalog stub path
+    // defaults to 'movie' and the CSV path infers from IMDb's titleType, so
+    // rows land as movies whenever that hint is missing or unrecognised.
+    // TMDB resolved the id under one endpoint or the other, so `kind` is the
+    // authoritative answer — without writing it back, a series stays typed as
+    // a film forever and every `type` filter lies.
+    type: details.kind,
     title: details.title ?? undefined,
     original_title: details.originalTitle ?? undefined,
     description: details.overview ?? undefined,

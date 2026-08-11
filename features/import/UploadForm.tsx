@@ -41,7 +41,9 @@ export function UploadForm() {
           <CardTitle>Importar desde IMDb</CardTitle>
           <CardDescription>
             Sube el archivo CSV exportado desde tu cuenta de IMDb (Calificaciones o Lista de
-            seguimiento).
+            seguimiento), o una lista propia con solo los identificadores. Basta una columna{" "}
+            <code>imdb_id</code> (o <code>Const</code>) con valores como <code>tt0111161</code>;
+            el resto de los datos se completa desde TMDB.
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -34,6 +34,17 @@ function chunk<T>(items: T[], size: number): T[][] {
   return chunks
 }
 
+/**
+ * Explorar's default order: best-rated first, unrated last, alphabetical
+ * within ties so the listing is stable between requests.
+ */
+function byRatingThenTitle(a: MediaItem, b: MediaItem): number {
+  const ratingA = a.imdbRating ?? -1
+  const ratingB = b.imdbRating ?? -1
+  if (ratingA !== ratingB) return ratingB - ratingA
+  return a.title.localeCompare(b.title)
+}
+
 export type UpsertOrCreateStubInput = {
   imdbId: string
   title: string
@@ -141,6 +152,26 @@ export type MediaManyFilters = {
   query?: string
 }
 
+/**
+ * Explorar filters (RIK-19). Superset of MediaManyFilters: the same
+ * media_items column predicates plus the two relational ones — genre via
+ * media_genres and platform via media_availability. `country` only narrows a
+ * platform filter; on its own it would mean "available anywhere in this
+ * country", which is what the platform picker already expresses.
+ */
+export type CatalogFilters = MediaManyFilters & {
+  platformSlug?: string
+  country?: string
+}
+
+export type CatalogPage = {
+  items: MediaItem[]
+  /** Rows matching the filters, before `limit` is applied. */
+  total: number
+  /** True when `total` exceeded `limit` and `items` is a prefix of the matches. */
+  truncated: boolean
+}
+
 export class MediaServices {
   constructor(private readonly client: SupabaseClient) {}
 
@@ -215,6 +246,149 @@ export class MediaServices {
     }
 
     return items
+  }
+
+  /**
+   * Explorar read (RIK-19): the whole catalog, not one user's slice.
+   *
+   * Deliberately NOT built on getManyWithFilters — that one starts from a
+   * caller-supplied id list (the user's user_media_status rows) and can only
+   * ever narrow it. Here there is no starting list, so the relational filters
+   * have to produce one and the unfiltered case must stay a single indexed
+   * query over media_items instead of paging the entire table into memory.
+   *
+   * Ordered by rating so the default view is useful, and capped: the DataTable
+   * paginates client-side, so every matching row crosses the wire. `total` and
+   * `truncated` let the UI say so honestly rather than silently showing a
+   * prefix.
+   */
+  async getCatalogWithFilters(filters: CatalogFilters, limit: number): Promise<CatalogPage> {
+    const restrictIds = await this.resolveRelationalFilters(filters)
+
+    if (restrictIds !== null && restrictIds.length === 0) {
+      return { items: [], total: 0, truncated: false }
+    }
+
+    if (restrictIds === null) {
+      let query = this.client.from("media_items").select("*", { count: "exact" })
+
+      if (filters.type) query = query.eq("type", filters.type)
+      if (filters.yearMin !== undefined) query = query.gte("year", filters.yearMin)
+      if (filters.yearMax !== undefined) query = query.lte("year", filters.yearMax)
+      if (filters.ratingMin !== undefined) query = query.gte("imdb_rating", filters.ratingMin)
+      if (filters.query) query = query.ilike("title", `%${filters.query}%`)
+
+      const { data, error, count } = await query
+        .order("imdb_rating", { ascending: false, nullsFirst: false })
+        .order("title", { ascending: true })
+        .range(0, limit - 1)
+
+      if (error) throw error
+
+      const total = count ?? 0
+      return {
+        items: (data as MediaItemRow[]).map(mapMediaItemRow),
+        total,
+        truncated: total > limit,
+      }
+    }
+
+    // A genre or platform filter is in play, so the candidate set is already
+    // bounded — fetch it chunked (Kong's request-line limit again), then
+    // order and cap in memory since the rows are spread across chunks.
+    const matches: MediaItem[] = []
+    for (const idChunk of chunk(restrictIds, ID_CHUNK_SIZE)) {
+      let query = this.client.from("media_items").select("*").in("id", idChunk)
+
+      if (filters.type) query = query.eq("type", filters.type)
+      if (filters.yearMin !== undefined) query = query.gte("year", filters.yearMin)
+      if (filters.yearMax !== undefined) query = query.lte("year", filters.yearMax)
+      if (filters.ratingMin !== undefined) query = query.gte("imdb_rating", filters.ratingMin)
+      if (filters.query) query = query.ilike("title", `%${filters.query}%`)
+
+      const rows = await paginate<MediaItemRow>((from, to) => query.range(from, to))
+      matches.push(...rows.map(mapMediaItemRow))
+    }
+
+    matches.sort(byRatingThenTitle)
+
+    return {
+      items: matches.slice(0, limit),
+      total: matches.length,
+      truncated: matches.length > limit,
+    }
+  }
+
+  /**
+   * Turns the genre and platform filters into the id set they allow, or null
+   * when neither is set (meaning "no restriction", which is different from
+   * an empty array's "nothing matches").
+   */
+  private async resolveRelationalFilters(filters: CatalogFilters): Promise<string[] | null> {
+    const byGenre = filters.genreSlug ? await this.mediaIdsForGenre(filters.genreSlug) : null
+    const byPlatform = filters.platformSlug
+      ? await this.mediaIdsForPlatform(filters.platformSlug, filters.country)
+      : null
+
+    if (byGenre === null) return byPlatform
+    if (byPlatform === null) return byGenre
+
+    const platformSet = new Set(byPlatform)
+    return byGenre.filter((id) => platformSet.has(id))
+  }
+
+  /** Media ids carrying this genre. An unknown slug matches nothing. */
+  private async mediaIdsForGenre(genreSlug: string): Promise<string[]> {
+    const { data: genre, error } = await this.client
+      .from("genres")
+      .select("id")
+      .eq("slug", genreSlug)
+      .maybeSingle()
+
+    if (error) throw error
+    if (!genre) return []
+
+    const rows = await paginate<{ media_id: string }>((from, to) =>
+      this.client
+        .from("media_genres")
+        .select("media_id")
+        .eq("genre_id", (genre as { id: string }).id)
+        .range(from, to)
+    )
+
+    return Array.from(new Set(rows.map((row) => row.media_id)))
+  }
+
+  /**
+   * Media ids currently available on this platform, optionally in one
+   * country. Reads media_availability directly rather than going through
+   * MediaAvailabilityServices, whose methods all start from a caller-supplied
+   * id list — the same RIK-14 constraint that keeps the chunk helpers
+   * duplicated across this layer.
+   */
+  private async mediaIdsForPlatform(platformSlug: string, country?: string): Promise<string[]> {
+    const { data: platform, error } = await this.client
+      .from("platforms")
+      .select("id")
+      .eq("slug", platformSlug)
+      .maybeSingle()
+
+    if (error) throw error
+    if (!platform) return []
+
+    const rows = await paginate<{ media_id: string }>((from, to) => {
+      let query = this.client
+        .from("media_availability")
+        .select("media_id")
+        .eq("platform_id", (platform as { id: string }).id)
+        .eq("is_available", true)
+
+      if (country) query = query.eq("country", country)
+
+      return query.range(from, to)
+    })
+
+    return Array.from(new Set(rows.map((row) => row.media_id)))
   }
 
   /**

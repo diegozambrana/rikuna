@@ -13,6 +13,19 @@ const votesFormatter = new Intl.NumberFormat("es-ES")
 export function TitleDetail({ slug, detail }: { slug: string; detail: TitleDetailDTO }) {
   const { media, genres, cast, availability, personalStatus, activeSubscriptions, isPublicView } = detail
 
+  // imdb_url is only filled in by the TMDB sync, but imdb_id is NOT NULL on
+  // every row, so deriving it keeps the link working on titles that haven't
+  // been synced yet.
+  const imdbUrl = media.imdbUrl ?? `https://www.imdb.com/title/${media.imdbId}/`
+  const imdbLink = (
+    <a
+      href={imdbUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Ver ${media.title} en IMDb (se abre en una pestaña nueva)`}
+    />
+  )
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
       {!isPublicView && (
@@ -40,10 +53,23 @@ export function TitleDetail({ slug, detail }: { slug: string; detail: TitleDetai
             <h1 className="font-heading text-2xl font-medium">{media.title}</h1>
             <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
               {media.year && <span>{media.year}</span>}
-              {media.imdbRating !== null && (
-                <Badge variant="secondary" className="gap-1 font-mono">
+              {/* The rating badge doubles as the IMDb link — it's IMDb's own
+                  score, so "click it to see the source" is where a reader
+                  looks first. Titles with no rating get a plain badge instead,
+                  so there's exactly one IMDb affordance either way. */}
+              {media.imdbRating !== null ? (
+                <Badge
+                  variant="secondary"
+                  render={imdbLink}
+                  className="gap-1 font-mono hover:opacity-80"
+                >
                   <Star className="size-3" />
                   {media.imdbRating.toFixed(1)}
+                </Badge>
+              ) : (
+                <Badge variant="outline" render={imdbLink} className="gap-1 hover:opacity-80">
+                  <Star className="size-3" />
+                  IMDb
                 </Badge>
               )}
               {media.imdbVotes !== null && <span>{votesFormatter.format(media.imdbVotes)} votos</span>}
